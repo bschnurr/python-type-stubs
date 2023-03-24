@@ -78,7 +78,7 @@ def expm_multiply(A, B, start=..., stop=..., num=..., endpoint=..., traceA=...):
     Warns
     -----
     UserWarning
-        If `A` is a linear operator and ``traceA=None`` (default).
+        If `A` is a linear operator and ``traceA==None`` (default).
 
     Notes
     -----
@@ -115,7 +115,6 @@ def expm_multiply(A, B, start=..., stop=..., num=..., endpoint=..., traceA=...):
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.sparse import csc_matrix
     >>> from scipy.sparse.linalg import expm, expm_multiply
     >>> A = csc_matrix([[1, 0], [0, 1]])

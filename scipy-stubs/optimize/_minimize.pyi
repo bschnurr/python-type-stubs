@@ -49,7 +49,8 @@ def minimize(fun, x0, args=..., method=..., jac=..., hess=..., hessp=..., bounds
             - 'trust-ncg'   :ref:`(see here) <optimize.minimize-trustncg>`
             - 'trust-exact' :ref:`(see here) <optimize.minimize-trustexact>`
             - 'trust-krylov' :ref:`(see here) <optimize.minimize-trustkrylov>`
-            - custom - a callable object, see below for description.
+            - custom - a callable object (added in version 0.14.0),
+              see below for description.
 
         If not given, chosen to be one of ``BFGS``, ``L-BFGS-B``, ``SLSQP``,
         depending on whether or not the problem has constraints or bounds.
@@ -146,14 +147,12 @@ def minimize(fun, x0, args=..., method=..., jac=..., hess=..., hessp=..., bounds
         equal to `tol`. For detailed control, use solver-specific
         options.
     options : dict, optional
-        A dictionary of solver options. All methods except `TNC` accept the
-        following generic options:
+        A dictionary of solver options. All methods accept the following
+        generic options:
 
             maxiter : int
                 Maximum number of iterations to perform. Depending on the
                 method each iteration may use several function evaluations.
-
-                For `TNC` use `maxfun` instead of `maxiter`.
             disp : bool
                 Set to True to print convergence messages.
 
@@ -369,6 +368,8 @@ def minimize(fun, x0, args=..., method=..., jac=..., hess=..., hessp=..., bounds
     expand in future versions and then these parameters will be passed to
     the method.  You can find an example in the scipy.optimize tutorial.
 
+    .. versionadded:: 0.11.0
+
     References
     ----------
     .. [1] Nelder, J A, and R Mead. 1965. A Simplex Method for Function
@@ -499,8 +500,8 @@ def minimize_scalar(fun, bracket=..., bounds=..., args=..., method=..., tol=...,
         bracket search (see `bracket`); it doesn't always mean that the
         obtained solution will satisfy ``a <= x <= c``.
     bounds : sequence, optional
-        For method 'bounded', `bounds` is mandatory and must have two finite
-        items corresponding to the optimization bounds.
+        For method 'bounded', `bounds` is mandatory and must have two items
+        corresponding to the optimization bounds.
     args : tuple, optional
         Extra arguments passed to the objective function.
     method : str or callable, optional
@@ -511,7 +512,6 @@ def minimize_scalar(fun, bracket=..., bounds=..., args=..., method=..., tol=...,
             - :ref:`Golden <optimize.minimize_scalar-golden>`
             - custom - a callable object (added in version 0.14.0), see below
 
-        Default is "Bounded" if bounds are provided and "Brent" otherwise.
         See the 'Notes' section for details of each solver.
 
     tol : float, optional
@@ -545,21 +545,20 @@ def minimize_scalar(fun, bracket=..., bounds=..., args=..., method=..., tol=...,
     Notes
     -----
     This section describes the available solvers that can be selected by the
-    'method' parameter. The default method is the ``"Bounded"`` Brent method if
-    `bounds` are passed and unbounded ``"Brent"`` otherwise.
+    'method' parameter. The default method is *Brent*.
 
     Method :ref:`Brent <optimize.minimize_scalar-brent>` uses Brent's
-    algorithm [1]_ to find a local minimum.  The algorithm uses inverse
+    algorithm to find a local minimum.  The algorithm uses inverse
     parabolic interpolation when possible to speed up convergence of
     the golden section method.
 
     Method :ref:`Golden <optimize.minimize_scalar-golden>` uses the
-    golden section search technique [1]_. It uses analog of the bisection
+    golden section search technique. It uses analog of the bisection
     method to decrease the bracketed interval. It is usually
     preferable to use the *Brent* method.
 
     Method :ref:`Bounded <optimize.minimize_scalar-bounded>` can
-    perform bounded minimization [2]_ [3]_. It uses the Brent method to find a
+    perform bounded minimization. It uses the Brent method to find a
     local minimum in the interval x1 < xopt < x2.
 
     **Custom minimizers**
@@ -581,16 +580,6 @@ def minimize_scalar(fun, bracket=..., bounds=..., args=..., method=..., tol=...,
 
     .. versionadded:: 0.11.0
 
-    References
-    ----------
-    .. [1] Press, W., S.A. Teukolsky, W.T. Vetterling, and B.P. Flannery.
-           Numerical Recipes in C. Cambridge University Press.
-    .. [2] Forsythe, G.E., M. A. Malcolm, and C. B. Moler. "Computer Methods
-           for Mathematical Computations." Prentice-Hall Series in Automatic
-           Computation 259 (1977).
-    .. [3] Brent, Richard P. Algorithms for Minimization Without Derivatives.
-           Courier Corporation, 2013.
-
     Examples
     --------
     Consider the problem of minimizing the following function.
@@ -602,11 +591,6 @@ def minimize_scalar(fun, bracket=..., bounds=..., args=..., method=..., tol=...,
 
     >>> from scipy.optimize import minimize_scalar
     >>> res = minimize_scalar(f)
-    >>> res.fun
-    -9.9149495908
-
-    The minimizer is:
-
     >>> res.x
     1.28077640403
 
@@ -614,9 +598,7 @@ def minimize_scalar(fun, bracket=..., bounds=..., args=..., method=..., tol=...,
     bounds as:
 
     >>> res = minimize_scalar(f, bounds=(-3, -1), method='bounded')
-    >>> res.fun  # minimum
-    3.28365179850e-13
-    >>> res.x  # minimizer
+    >>> res.x
     -2.0000002026
 
     """

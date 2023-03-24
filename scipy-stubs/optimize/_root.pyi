@@ -121,7 +121,6 @@ def root(fun, x0, args=..., method=..., jac=..., tol=..., callback=..., options=
     The following functions define a system of nonlinear equations and its
     jacobian.
 
-    >>> import numpy as np
     >>> def fun(x):
     ...     return [x[0]  + 0.5 * (x[0] - x[1])**3 - 1.0,
     ...             0.5 * (x[1] - x[0])**3 + x[1]]

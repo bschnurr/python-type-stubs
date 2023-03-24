@@ -85,9 +85,6 @@ def milp(c, *, integrality=..., bounds=..., constraints=..., options=...): # -> 
         disp : bool (default: ``False``)
             Set to ``True`` if indicators of optimization status are to be
             printed to the console during optimization.
-        node_limit : int, optional
-            The maximum number of nodes (linear program relaxations) to solve
-            before stopping. Default is no maximum number of nodes.
         presolve : bool (default: ``True``)
             Presolve attempts to identify trivial infeasibilities,
             identify trivial unboundedness, and simplify the problem before
@@ -95,10 +92,6 @@ def milp(c, *, integrality=..., bounds=..., constraints=..., options=...): # -> 
         time_limit : float, optional
             The maximum number of seconds allotted to solve the problem.
             Default is no time limit.
-        mip_rel_gap : float, optional
-            Termination criterion for MIP solver: solver will terminate when
-            the gap between the primal objective value and the dual objective
-            bound, scaled by the primal objective value, is <= mip_rel_gap.
 
     Returns
     -------
@@ -139,8 +132,8 @@ def milp(c, *, integrality=..., bounds=..., constraints=..., options=...): # -> 
             The MILP solver's final estimate of the lower bound on the optimal
             solution.
         mip_gap : float
-            The difference between the primal objective value and the dual
-            objective bound, scaled by the primal objective value.
+            The difference between the final objective function value and the
+            final dual bound.
 
     Notes
     -----
@@ -152,7 +145,7 @@ def milp(c, *, integrality=..., bounds=..., constraints=..., options=...): # -> 
     ----------
     .. [1] Huangfu, Q., Galabova, I., Feldmeier, M., and Hall, J. A. J.
            "HiGHS - high performance software for linear optimization."
-           https://highs.dev/
+           Accessed 12/25/2021 at https://www.maths.ed.ac.uk/hall/HiGHS/#guide
     .. [2] Huangfu, Q. and Hall, J. A. J. "Parallelizing the dual revised
            simplex method." Mathematical Programming Computation, 10 (1),
            119-142, 2018. DOI: 10.1007/s12532-017-0130-5
@@ -165,7 +158,6 @@ def milp(c, *, integrality=..., bounds=..., constraints=..., options=...): # -> 
     that the problem be expressed as a minimization problem, the objective
     function coefficients on the decision variables are:
 
-    >>> import numpy as np
     >>> c = -np.array([0, 1])
 
     Note the negative sign: we maximize the original objective function
@@ -215,8 +207,6 @@ def milp(c, *, integrality=..., bounds=..., constraints=..., options=...): # -> 
 
     we would not have obtained the correct solution by rounding to the nearest
     integers.
-
-    Other examples are given :ref:`in the tutorial <tutorial-optimize_milp>`.
 
     """
     ...

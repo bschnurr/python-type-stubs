@@ -69,6 +69,8 @@ def splprep(x, w=..., u=..., ub=..., ue=..., k=..., task=..., s=..., t=..., full
        returned.  Values of ``y[m-1]`` and ``w[m-1]`` are not used.
     quiet : int, optional
          Non-zero to suppress messages.
+         This parameter is deprecated; use standard Python warning filters
+         instead.
 
     Returns
     -------
@@ -120,7 +122,6 @@ def splprep(x, w=..., u=..., ub=..., ue=..., k=..., task=..., s=..., t=..., full
     --------
     Generate a discretization of a limacon curve in the polar coordinates:
 
-    >>> import numpy as np
     >>> phi = np.linspace(0, 2.*np.pi, 40)
     >>> r = 0.5 + np.cos(phi)         # polar coords
     >>> x, y = r * np.cos(phi), r * np.sin(phi)    # convert to cartesian
@@ -144,7 +145,7 @@ def splprep(x, w=..., u=..., ub=..., ue=..., k=..., task=..., s=..., t=..., full
     """
     ...
 
-def splrep(x, y, w=..., xb=..., xe=..., k=..., task=..., s=..., t=..., full_output=..., per=..., quiet=...): # -> tuple[tuple[Unknown, Any, int], Any, Any, Unknown] | tuple[Unknown, Any, int]:
+def splrep(x, y, w=..., xb=..., xe=..., k=..., task=..., s=..., t=..., full_output=..., per=..., quiet=...): # -> tuple[tuple[Unknown, Unknown, int], Unknown, Unknown, Unknown] | tuple[Unknown, Unknown, int]:
     """
     Find the B-spline representation of a 1-D curve.
 
@@ -200,6 +201,8 @@ def splrep(x, y, w=..., xb=..., xe=..., k=..., task=..., s=..., t=..., full_outp
         y[m-1] and w[m-1] are not used.
     quiet : bool, optional
         Non-zero to suppress messages.
+        This parameter is deprecated; use standard Python warning filters
+        instead.
 
     Returns
     -------
@@ -261,7 +264,6 @@ def splrep(x, y, w=..., xb=..., xe=..., k=..., task=..., s=..., t=..., full_outp
     Further examples are given in
     :ref:`in the tutorial <tutorial-interpolate_splXXX>`.
 
-    >>> import numpy as np
     >>> import matplotlib.pyplot as plt
     >>> from scipy.interpolate import splev, splrep
     >>> x = np.linspace(0, 10, 10)
@@ -275,7 +277,7 @@ def splrep(x, y, w=..., xb=..., xe=..., k=..., task=..., s=..., t=..., full_outp
     """
     ...
 
-def splev(x, tck, der=..., ext=...): # -> ndarray[Any, dtype[complex_ | float_]] | list[Unknown] | Any:
+def splev(x, tck, der=..., ext=...): # -> ndarray[Any, dtype[complex_ | float_]] | list[Unknown]:
     """
     Evaluate a B-spline or its derivatives.
 
@@ -341,7 +343,7 @@ def splev(x, tck, der=..., ext=...): # -> ndarray[Any, dtype[complex_ | float_]]
     """
     ...
 
-def splint(a, b, tck, full_output=...): # -> list[Unknown] | tuple[Any, ...] | Any | tuple[Any, Any]:
+def splint(a, b, tck, full_output=...): # -> Any | list[Unknown] | tuple[Unknown, Unknown]:
     """
     Evaluate the definite integral of a B-spline between two given points.
 
@@ -393,7 +395,7 @@ def splint(a, b, tck, full_output=...): # -> list[Unknown] | tuple[Any, ...] | A
     """
     ...
 
-def sproot(tck, mest=...): # -> list[Unknown] | Any:
+def sproot(tck, mest=...): # -> list[Unknown]:
     """
     Find the roots of a cubic B-spline.
 
@@ -439,37 +441,12 @@ def sproot(tck, mest=...): # -> list[Unknown] | Any:
 
     Examples
     --------
-
-    For some data, this method may miss a root. This happens when one of
-    the spline knots (which FITPACK places automatically) happens to
-    coincide with the true root. A workaround is to convert to `PPoly`,
-    which uses a different root-finding algorithm.
-
-    For example,
-
-    >>> x = [1.96, 1.97, 1.98, 1.99, 2.00, 2.01, 2.02, 2.03, 2.04, 2.05]
-    >>> y = [-6.365470e-03, -4.790580e-03, -3.204320e-03, -1.607270e-03,
-    ...      4.440892e-16,  1.616930e-03,  3.243000e-03,  4.877670e-03,
-    ...      6.520430e-03,  8.170770e-03]
-    >>> from scipy.interpolate import splrep, sproot, PPoly
-    >>> tck = splrep(x, y, s=0)
-    >>> sproot(tck)
-    array([], dtype=float64)
-
-    Converting to a PPoly object does find the roots at `x=2`:
-
-    >>> ppoly = PPoly.from_spline(tck)
-    >>> ppoly.roots(extrapolate=False)
-    array([2.])
-
-
-    Further examples are given :ref:`in the tutorial
-    <tutorial-interpolate_splXXX>`.
+    Examples are given :ref:`in the tutorial <tutorial-interpolate_splXXX>`.
 
     """
     ...
 
-def spalde(x, tck): # -> list[Unknown] | Any:
+def spalde(x, tck): # -> list[Unknown]:
     """
     Evaluate all derivatives of a B-spline.
 
@@ -512,7 +489,7 @@ def spalde(x, tck): # -> list[Unknown] | Any:
     """
     ...
 
-def insert(x, tck, m=..., per=...): # -> BSpline | tuple[Unbound | Unknown, list[Unknown], Unbound | Unknown] | tuple[Any, Any, Unknown]:
+def insert(x, tck, m=..., per=...): # -> BSpline | tuple[Unbound | Unknown, list[Unknown], Unbound | Unknown] | tuple[Unknown, Unknown, Unknown]:
     """
     Insert knots into a B-spline.
 
@@ -565,7 +542,6 @@ def insert(x, tck, m=..., per=...): # -> BSpline | tuple[Unbound | Unknown, list
     You can insert knots into a B-spline.
 
     >>> from scipy.interpolate import splrep, insert
-    >>> import numpy as np
     >>> x = np.linspace(0, 10, 5)
     >>> y = np.sin(x)
     >>> tck = splrep(x, y)
@@ -621,7 +597,6 @@ def splder(tck, n=...): # -> BSpline | tuple[Unknown, Unknown | Any, Unknown]:
     This can be used for finding maxima of a curve:
 
     >>> from scipy.interpolate import splrep, splder, sproot
-    >>> import numpy as np
     >>> x = np.linspace(0, 10, 70)
     >>> y = np.sin(x)
     >>> spl = splrep(x, y, k=4)
@@ -675,7 +650,6 @@ def splantider(tck, n=...): # -> BSpline | tuple[Unknown, Unknown | Any, Unknown
     Examples
     --------
     >>> from scipy.interpolate import splrep, splder, splantider, splev
-    >>> import numpy as np
     >>> x = np.linspace(0, np.pi/2, 70)
     >>> y = 1 / np.sqrt(1 - 0.8*np.sin(x)**2)
     >>> spl = splrep(x, y)

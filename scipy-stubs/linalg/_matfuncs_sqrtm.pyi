@@ -33,11 +33,7 @@ def sqrtm(A, disp=..., blocksize=...): # -> Any | NDArray[float_] | NDArray[Unkn
     Returns
     -------
     sqrtm : (N, N) ndarray
-        Value of the sqrt function at `A`. The dtype is float or complex.
-        The precision (data size) is determined based on the precision of
-        input `A`. When the dtype is float, the precision is same as `A`.
-        When the dtype is complex, the precition is double as `A`. The
-        precision might be cliped by each dtype precision range.
+        Value of the sqrt function at `A`
 
     errest : float
         (if disp == False)
@@ -52,7 +48,6 @@ def sqrtm(A, disp=..., blocksize=...): # -> Any | NDArray[float_] | NDArray[Unkn
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.linalg import sqrtm
     >>> a = np.array([[1.0, 3.0], [1.0, 4.0]])
     >>> r = sqrtm(a)

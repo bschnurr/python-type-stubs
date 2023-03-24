@@ -227,7 +227,6 @@ def lsqr(A, b, damp=..., atol=..., btol=..., conlim=..., iter_lim=..., show=...,
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.sparse import csc_matrix
     >>> from scipy.sparse.linalg import lsqr
     >>> A = csc_matrix([[1., 0.], [1., 1.], [0., 1.]], dtype=float)

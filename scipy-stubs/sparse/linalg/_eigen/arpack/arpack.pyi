@@ -151,10 +151,10 @@ class IterOpInv(LinearOperator):
     
 
 
-def get_inv_matvec(M, hermitian=..., tol=...): # -> (x: Unknown) -> (ndarray[Any, dtype[Unknown]] | ndarray[Any, Unknown]):
+def get_inv_matvec(M, hermitian=..., tol=...): # -> (x: Unknown) -> (ndarray[Any, Unknown] | ndarray[Any, dtype[Unknown]]):
     ...
 
-def get_OPinv_matvec(A, M, sigma, hermitian=..., tol=...): # -> (x: Unknown) -> (ndarray[Any, dtype[Unknown]] | ndarray[Any, Unknown]):
+def get_OPinv_matvec(A, M, sigma, hermitian=..., tol=...): # -> (x: Unknown) -> (ndarray[Any, Unknown] | ndarray[Any, dtype[Unknown]]):
     ...
 
 _ARPACK_LOCK = ...
@@ -300,7 +300,6 @@ def eigs(A, k=..., M=..., sigma=..., which=..., v0=..., ncv=..., maxiter=..., to
     --------
     Find 6 eigenvectors of the identity matrix:
 
-    >>> import numpy as np
     >>> from scipy.sparse.linalg import eigs
     >>> id = np.eye(13)
     >>> vals, vecs = eigs(id, k=6)
@@ -506,7 +505,6 @@ def eigsh(A, k=..., M=..., sigma=..., which=..., v0=..., ncv=..., maxiter=..., t
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.sparse.linalg import eigsh
     >>> identity = np.eye(13)
     >>> eigenvalues, eigenvectors = eigsh(identity, k=6)

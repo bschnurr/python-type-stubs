@@ -12,27 +12,19 @@ def minkowski_distance_p(x, y, p=...): # -> Any:
     not extract the pth root. If `p` is 1 or infinity, this is equal to
     the actual L**p distance.
 
-    The last dimensions of `x` and `y` must be the same length.  Any
-    other dimensions must be compatible for broadcasting.
-
     Parameters
     ----------
-    x : (..., K) array_like
+    x : (M, K) array_like
         Input array.
-    y : (..., K) array_like
+    y : (N, K) array_like
         Input array.
     p : float, 1 <= p <= infinity
         Which Minkowski p-norm to use.
 
-    Returns
-    -------
-    dist : ndarray
-        pth power of the distance between the input arrays.
-
     Examples
     --------
     >>> from scipy.spatial import minkowski_distance_p
-    >>> minkowski_distance_p([[0, 0], [0, 0]], [[1, 1], [0, 1]])
+    >>> minkowski_distance_p([[0,0],[0,0]], [[1,1],[0,1]])
     array([2, 1])
 
     """
@@ -41,27 +33,19 @@ def minkowski_distance_p(x, y, p=...): # -> Any:
 def minkowski_distance(x, y, p=...): # -> Any:
     """Compute the L**p distance between two arrays.
 
-    The last dimensions of `x` and `y` must be the same length.  Any
-    other dimensions must be compatible for broadcasting.
-
     Parameters
     ----------
-    x : (..., K) array_like
+    x : (M, K) array_like
         Input array.
-    y : (..., K) array_like
+    y : (N, K) array_like
         Input array.
     p : float, 1 <= p <= infinity
         Which Minkowski p-norm to use.
 
-    Returns
-    -------
-    dist : ndarray
-        Distance between the input arrays.
-
     Examples
     --------
     >>> from scipy.spatial import minkowski_distance
-    >>> minkowski_distance([[0, 0], [0, 0]], [[1, 1], [0, 1]])
+    >>> minkowski_distance([[0,0],[0,0]], [[1,1],[0,1]])
     array([ 1.41421356,  1.        ])
 
     """
@@ -452,7 +436,6 @@ class KDTree(cKDTree):
 
         Examples
         --------
-        >>> import numpy as np
         >>> from scipy import spatial
         >>> x, y = np.mgrid[0:5, 0:5]
         >>> points = np.c_[x.ravel(), y.ravel()]

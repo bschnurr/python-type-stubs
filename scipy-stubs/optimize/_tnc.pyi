@@ -185,3 +185,7 @@ def fmin_tnc(func, x0, fprime=..., args=..., approx_grad=..., bounds=..., epsilo
     """
     ...
 
+if __name__ == '__main__':
+    def example(): # -> None:
+        ...
+    

@@ -77,7 +77,6 @@ def schur(a, output=..., lwork=..., overwrite_a=..., sort=..., check_finite=...)
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.linalg import schur, eigvals
     >>> A = np.array([[0, 2, 2], [0, 1, 2], [1, 0, 1]])
     >>> T, Z = schur(A)
@@ -144,7 +143,6 @@ def rsf2csf(T, Z, check_finite=...): # -> tuple[Any, Any]:
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.linalg import schur, rsf2csf
     >>> A = np.array([[0, 2, 2], [0, 1, 2], [1, 0, 1]])
     >>> T, Z = schur(A)

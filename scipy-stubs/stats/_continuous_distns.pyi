@@ -993,17 +993,7 @@ class weibull_min_gen(rv_continuous):
     %(example)s
 
     """
-    @extend_notes_in_docstring(rv_continuous, notes="""\
-        If ``method='mm'``, parameters fixed by the user are respected, and the
-        remaining parameters are used to match distribution and sample moments
-        where possible. For example, if the user fixes the location with
-        ``floc``, the parameters will only match the distribution skewness and
-        variance to the sample skewness and variance; no attempt will be made
-        to match the means or minimize a norm of the errors.
-        \n\n""")
-    def fit(self, data, *args, **kwds): # -> tuple[Unknown, ...] | tuple[Unknown | None, Any | Unknown | None, Any | Unknown | None]:
-        ...
-    
+    ...
 
 
 weibull_min = ...
@@ -1536,7 +1526,7 @@ class gumbel_r_gen(rv_continuous):
     """
     @_call_super_mom
     @inherit_docstring_from(rv_continuous)
-    def fit(self, data, *args, **kwds): # -> tuple[Unknown, Unknown]:
+    def fit(self, data, *args, **kwds): # -> tuple[Unknown, ...] | tuple[Unknown, Unknown]:
         ...
     
 
@@ -1876,7 +1866,7 @@ class norminvgauss_gen(rv_continuous):
 
 norminvgauss = ...
 class invweibull_gen(rv_continuous):
-    """An inverted Weibull continuous random variable.
+    u"""An inverted Weibull continuous random variable.
 
     This distribution is also known as the Fréchet distribution or the
     type II extreme value distribution.
@@ -2071,53 +2061,7 @@ class levy_gen(rv_continuous):
 
     %(after_notes)s
 
-    Examples
-    --------
-    >>> import numpy as np
-    >>> from scipy.stats import levy
-    >>> import matplotlib.pyplot as plt
-    >>> fig, ax = plt.subplots(1, 1)
-
-    Calculate the first four moments:
-
-    >>> mean, var, skew, kurt = levy.stats(moments='mvsk')
-
-    Display the probability density function (``pdf``):
-
-    >>> # `levy` is very heavy-tailed.
-    >>> # To show a nice plot, let's cut off the upper 40 percent.
-    >>> a, b = levy.ppf(0), levy.ppf(0.6)
-    >>> x = np.linspace(a, b, 100)
-    >>> ax.plot(x, levy.pdf(x),
-    ...        'r-', lw=5, alpha=0.6, label='levy pdf')
-
-    Alternatively, the distribution object can be called (as a function)
-    to fix the shape, location and scale parameters. This returns a "frozen"
-    RV object holding the given parameters fixed.
-
-    Freeze the distribution and display the frozen ``pdf``:
-
-    >>> rv = levy()
-    >>> ax.plot(x, rv.pdf(x), 'k-', lw=2, label='frozen pdf')
-
-    Check accuracy of ``cdf`` and ``ppf``:
-
-    >>> vals = levy.ppf([0.001, 0.5, 0.999])
-    >>> np.allclose([0.001, 0.5, 0.999], levy.cdf(vals))
-    True
-
-    Generate random numbers:
-
-    >>> r = levy.rvs(size=1000)
-
-    And compare the histogram:
-
-    >>> # manual binning to ignore the tail
-    >>> bins = np.concatenate((np.linspace(a, b, 20), [np.max(r)]))
-    >>> ax.hist(r, bins=bins, density=True, histtype='stepfilled', alpha=0.2)
-    >>> ax.set_xlim([x[0], x[-1]])
-    >>> ax.legend(loc='best', frameon=False)
-    >>> plt.show()
+    %(example)s
 
     """
     _support_mask = ...
@@ -2147,53 +2091,7 @@ class levy_l_gen(rv_continuous):
 
     %(after_notes)s
 
-    Examples
-    --------
-    >>> import numpy as np
-    >>> from scipy.stats import levy_l
-    >>> import matplotlib.pyplot as plt
-    >>> fig, ax = plt.subplots(1, 1)
-
-    Calculate the first four moments:
-
-    >>> mean, var, skew, kurt = levy_l.stats(moments='mvsk')
-
-    Display the probability density function (``pdf``):
-
-    >>> # `levy_l` is very heavy-tailed.
-    >>> # To show a nice plot, let's cut off the lower 40 percent.
-    >>> a, b = levy_l.ppf(0.4), levy_l.ppf(1)
-    >>> x = np.linspace(a, b, 100)
-    >>> ax.plot(x, levy_l.pdf(x),
-    ...        'r-', lw=5, alpha=0.6, label='levy_l pdf')
-
-    Alternatively, the distribution object can be called (as a function)
-    to fix the shape, location and scale parameters. This returns a "frozen"
-    RV object holding the given parameters fixed.
-
-    Freeze the distribution and display the frozen ``pdf``:
-
-    >>> rv = levy_l()
-    >>> ax.plot(x, rv.pdf(x), 'k-', lw=2, label='frozen pdf')
-
-    Check accuracy of ``cdf`` and ``ppf``:
-
-    >>> vals = levy_l.ppf([0.001, 0.5, 0.999])
-    >>> np.allclose([0.001, 0.5, 0.999], levy_l.cdf(vals))
-    True
-
-    Generate random numbers:
-
-    >>> r = levy_l.rvs(size=1000)
-
-    And compare the histogram:
-
-    >>> # manual binning to ignore the tail
-    >>> bins = np.concatenate(([np.min(r)], np.linspace(a, b, 20)))
-    >>> ax.hist(r, bins=bins, density=True, histtype='stepfilled', alpha=0.2)
-    >>> ax.set_xlim([x[0], x[-1]])
-    >>> ax.legend(loc='best', frameon=False)
-    >>> plt.show()
+    %(example)s
 
     """
     _support_mask = ...
@@ -2226,7 +2124,7 @@ class logistic_gen(rv_continuous):
     """
     @_call_super_mom
     @inherit_docstring_from(rv_continuous)
-    def fit(self, data, *args, **kwds): # -> tuple[Unknown, ...] | tuple[Unknown, Unknown]:
+    def fit(self, data, *args, **kwds): # -> tuple[Unknown, ...]:
         ...
     
 
@@ -2360,14 +2258,6 @@ class gibrat_gen(rv_continuous):
 
 deprmsg = ...
 class gilbrat_gen(gibrat_gen):
-    r"""
-
-    .. deprecated:: 1.9.0
-        `gilbrat` is deprecated, use `gibrat` instead!
-        `gilbrat` is a misspelling of the correct name for the `gibrat`
-        distribution, and will be removed in SciPy 1.11.
-
-    """
     def __call__(self, *args, **kwds): # -> rv_continuous_frozen | rv_discrete_frozen:
         ...
     
@@ -2946,16 +2836,7 @@ class powerlaw_gen(rv_continuous):
     %(example)s
 
     """
-    @_call_super_mom
-    @extend_notes_in_docstring(rv_continuous, notes="""\
-        Notes specifically for ``powerlaw.fit``: If the location is a free
-        parameter and the value returned for the shape parameter is less than
-        one, the true maximum likelihood approaches infinity. This causes
-        numerical difficulties, and the resulting estimates are approximate.
-        \n\n""")
-    def fit(self, data, *args, **kwds): # -> tuple[Unknown, ...] | tuple[Any, Unknown, Unknown] | tuple[Unknown | Any, Any, Unknown] | tuple[Unknown | Any, Unknown, Unknown] | tuple[Unknown | Any, Any, Any]:
-        ...
-    
+    ...
 
 
 powerlaw = ...
@@ -3084,7 +2965,7 @@ class rayleigh_gen(rv_continuous):
         MLE.  Only the (optional) `loc` parameter is used as the initial guess
         for the root finder; the `scale` parameter and any other parameters
         for the optimizer are ignored.\n\n""")
-    def fit(self, data, *args, **kwds): # -> tuple[Unknown, ...] | tuple[Unknown, Unknown]:
+    def fit(self, data, *args, **kwds): # -> tuple[Unknown, Unknown]:
         ...
     
 
@@ -3304,26 +3185,12 @@ class skew_norm_gen(rv_continuous):
 
     References
     ----------
-    .. [1] A. Azzalini and A. Capitanio (1999). Statistical applications of
-        the multivariate skew-normal distribution. J. Roy. Statist. Soc.,
-        B 61, 579-602. :arxiv:`0911.2093`
+    .. [1] A. Azzalini and A. Capitanio (1999). Statistical applications of the
+        multivariate skew-normal distribution. J. Roy. Statist. Soc., B 61, 579-602.
+        :arxiv:`0911.2093`
 
     """
-    @extend_notes_in_docstring(rv_continuous, notes="""\
-        If ``method='mm'``, parameters fixed by the user are respected, and the
-        remaining parameters are used to match distribution and sample moments
-        where possible. For example, if the user fixes the location with
-        ``floc``, the parameters will only match the distribution skewness and
-        variance to the sample skewness and variance; no attempt will be made
-        to match the means or minimize a norm of the errors.
-        Note that the maximum possible skewness magnitude of a
-        `scipy.stats.skewnorm` distribution is approximately 0.9952717; if the
-        magnitude of the data's sample skewness exceeds this, the returned
-        shape parameter ``a`` will be infinite.
-        \n\n""")
-    def fit(self, data, *args, **kwds): # -> tuple[Unknown, ...] | tuple[Any | Unknown | None, Unknown | Any | None, Any | Unknown | None]:
-        ...
-    
+    ...
 
 
 skewnorm = ...
@@ -3427,12 +3294,14 @@ class truncnorm_gen(rv_continuous):
 
     Notes
     -----
-    This distribution is the normal distribution centered on ``loc`` (default
-    0), with standard deviation ``scale`` (default 1), and clipped at ``a``,
-    ``b`` standard deviations to the left, right (respectively) from ``loc``.
-    If ``myclip_a`` and ``myclip_b`` are clip values in the sample space (as
-    opposed to the number of standard deviations) then they can be converted
-    to the required form according to::
+    The standard form of this distribution is a standard normal truncated to
+    the range ``[a, b]``, where ``a`` and ``b`` are user-provided shape
+    parameters. The parameter ``loc`` shifts the mean of the underlying normal
+    distribution, and ``scale`` controls the standard deviation of the
+    underlying normal, but ``a`` and ``b`` are still defined with respect to
+    the *standard* normal. If ``myclip_a`` and ``myclip_b`` are clip values
+    defined with respect to a shifted and scaled normal, they can be converted
+    the required form according to::
 
         a, b = (myclip_a - loc) / scale, (myclip_b - loc) / scale
 
@@ -3443,51 +3312,6 @@ class truncnorm_gen(rv_continuous):
 
 
 truncnorm = ...
-class truncpareto_gen(rv_continuous):
-    r"""An upper truncated Pareto continuous random variable.
-
-    %(before_notes)s
-
-    See Also
-    --------
-    pareto : Pareto distribution
-
-    Notes
-    -----
-    The probability density function for `truncpareto` is:
-
-    .. math::
-
-        f(x, b, c) = \frac{b}{1 - c^{-b}} \frac{1}{x^{b+1}}
-
-    for :math:`b > 0`, :math:`c > 1` and :math:`1 \le x \le c`.
-
-    `truncpareto` takes `b` and `c` as shape parameters for :math:`b` and
-    :math:`c`.
-
-    Notice that the upper truncation value :math:`c` is defined in
-    standardized form so that random values of an unscaled, unshifted variable
-    are within the range ``[1, c]``.
-    If ``u_r`` is the upper bound to a scaled and/or shifted variable,
-    then ``c = (u_r - loc) / scale``. In other words, the support of the
-    distribution becomes ``(scale + loc) <= x <= (c*scale + loc)`` when
-    `scale` and/or `loc` are provided.
-
-    %(after_notes)s
-
-    References
-    ----------
-    .. [1] Burroughs, S. M., and Tebbens S. F.
-        "Upper-truncated power laws in natural systems."
-        Pure and Applied Geophysics 158.4 (2001): 741-757.
-
-    %(example)s
-
-    """
-    ...
-
-
-truncpareto = ...
 class tukeylambda_gen(rv_continuous):
     r"""A Tukey-Lamdba continuous random variable.
 
@@ -3566,7 +3390,6 @@ class uniform_gen(rv_continuous):
 
         Examples
         --------
-        >>> import numpy as np
         >>> from scipy.stats import uniform
 
         We'll fit the uniform distribution to `x`:
@@ -3644,17 +3467,7 @@ class vonmises_gen(rv_continuous):
     %(example)s
 
     """
-    @inherit_docstring_from(rv_continuous)
-    def rvs(self, *args, **kwds): # -> Any:
-        ...
-    
-    @extend_notes_in_docstring(rv_continuous, notes="""\
-        The default limits of integration are endpoints of the interval
-        of width ``2*pi`` centered at `loc` (e.g. ``[-pi, pi]`` when
-        ``loc=0``).\n\n""")
-    def expect(self, func=..., args=..., loc=..., scale=..., lb=..., ub=..., conditional=..., **kwds): # -> ndarray[Any, dtype[Unknown]]:
-        ...
-    
+    ...
 
 
 vonmises = ...
@@ -3892,36 +3705,15 @@ class rv_histogram(rv_continuous):
     Parameters
     ----------
     histogram : tuple of array_like
-        Tuple containing two array_like objects.
-        The first containing the content of n bins,
-        the second containing the (n+1) bin boundaries.
-        In particular, the return value of `numpy.histogram` is accepted.
-
-    density : bool, optional
-        If False, assumes the histogram is proportional to counts per bin;
-        otherwise, assumes it is proportional to a density.
-        For constant bin widths, these are equivalent, but the distinction
-        is important when bin widths vary (see Notes).
-        If None (default), sets ``density=True`` for backwards compatibility,
-        but warns if the bin widths are variable. Set `density` explicitly
-        to silence the warning.
-
-        .. versionadded:: 1.10.0
+      Tuple containing two array_like objects
+      The first containing the content of n bins
+      The second containing the (n+1) bin boundaries
+      In particular the return value np.histogram is accepted
 
     Notes
     -----
-    When a histogram has unequal bin widths, there is a distinction between
-    histograms that are proportional to counts per bin and histograms that are
-    proportional to probability density over a bin. If `numpy.histogram` is
-    called with its default ``density=False``, the resulting histogram is the
-    number of counts per bin, so ``density=False`` should be passed to
-    `rv_histogram`. If `numpy.histogram` is called with ``density=True``, the
-    resulting histogram is in terms of probability density, so ``density=True``
-    should be passed to `rv_histogram`. To avoid warnings, always pass
-    ``density`` explicitly when the input histogram has unequal bin widths.
-
     There are no additional shape parameters except for the loc and scale.
-    The pdf is defined as a stepwise function from the provided histogram.
+    The pdf is defined as a stepwise function from the provided histogram
     The cdf is a linear interpolation of the pdf.
 
     .. versionadded:: 0.19.0
@@ -3935,7 +3727,7 @@ class rv_histogram(rv_continuous):
     >>> import numpy as np
     >>> data = scipy.stats.norm.rvs(size=100000, loc=0, scale=1.5, random_state=123)
     >>> hist = np.histogram(data, bins=100)
-    >>> hist_dist = scipy.stats.rv_histogram(hist, density=False)
+    >>> hist_dist = scipy.stats.rv_histogram(hist)
 
     Behaves like an ordinary scipy rv_continuous distribution
 
@@ -3960,34 +3752,25 @@ class rv_histogram(rv_continuous):
 
     >>> import matplotlib.pyplot as plt
     >>> X = np.linspace(-5.0, 5.0, 100)
-    >>> fig, ax = plt.subplots()
-    >>> ax.set_title("PDF from Template")
-    >>> ax.hist(data, density=True, bins=100)
-    >>> ax.plot(X, hist_dist.pdf(X), label='PDF')
-    >>> ax.plot(X, hist_dist.cdf(X), label='CDF')
-    >>> ax.legend()
-    >>> fig.show()
+    >>> plt.title("PDF from Template")
+    >>> plt.hist(data, density=True, bins=100)
+    >>> plt.plot(X, hist_dist.pdf(X), label='PDF')
+    >>> plt.plot(X, hist_dist.cdf(X), label='CDF')
+    >>> plt.show()
 
     """
     _support_mask = ...
-    def __init__(self, histogram, *args, density=..., **kwargs) -> None:
+    def __init__(self, histogram, *args, **kwargs) -> None:
         """
         Create a new distribution using the given histogram
 
         Parameters
         ----------
         histogram : tuple of array_like
-            Tuple containing two array_like objects.
-            The first containing the content of n bins,
-            the second containing the (n+1) bin boundaries.
-            In particular, the return value of np.histogram is accepted.
-        density : bool, optional
-            If False, assumes the histogram is proportional to counts per bin;
-            otherwise, assumes it is proportional to a density.
-            For constant bin widths, these are equivalent.
-            If None (default), sets ``density=True`` for backward
-            compatibility, but warns if the bin widths are variable. Set
-            `density` explicitly to silence the warning.
+          Tuple containing two array_like objects
+          The first containing the content of n bins
+          The second containing the (n+1) bin boundaries
+          In particular the return value np.histogram is accepted
         """
         ...
     
@@ -4020,7 +3803,7 @@ class studentized_range_gen(rv_continuous):
 
     When :math:`\nu` exceeds 100,000, an asymptotic approximation (infinite
     degrees of freedom) is used to compute the cumulative distribution
-    function [4]_ and probability distribution function.
+    function [4]_.
 
     %(after_notes)s
 
@@ -4043,7 +3826,6 @@ class studentized_range_gen(rv_continuous):
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.stats import studentized_range
     >>> import matplotlib.pyplot as plt
     >>> fig, ax = plt.subplots(1, 1)

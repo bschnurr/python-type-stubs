@@ -158,7 +158,7 @@ class LocalSearchWrapper:
     
 
 
-def dual_annealing(func, bounds, args=..., maxiter=..., minimizer_kwargs=..., initial_temp=..., restart_temp_ratio=..., visit=..., accept=..., maxfun=..., seed=..., no_local_search=..., callback=..., x0=...): # -> OptimizeResult:
+def dual_annealing(func, bounds, args=..., maxiter=..., minimizer_kwargs=..., initial_temp=..., restart_temp_ratio=..., visit=..., accept=..., maxfun=..., seed=..., no_local_search=..., callback=..., x0=..., local_search_options=...): # -> OptimizeResult:
     """
     Find the global minimum of a function using Dual Annealing.
 
@@ -208,7 +208,9 @@ def dual_annealing(func, bounds, args=..., maxiter=..., minimizer_kwargs=..., in
         algorithm is in the middle of a local search, this number will be
         exceeded, the algorithm will stop just after the local search is
         done. Default value is 1e7.
-    seed : {None, int, `numpy.random.Generator`, `numpy.random.RandomState`}, optional
+    seed : {None, int, `numpy.random.Generator`,
+            `numpy.random.RandomState`}, optional
+
         If `seed` is None (or `np.random`), the `numpy.random.RandomState`
         singleton is used.
         If `seed` is an int, a new ``RandomState`` instance is used,
@@ -236,6 +238,13 @@ def dual_annealing(func, bounds, args=..., maxiter=..., minimizer_kwargs=..., in
         If the callback implementation returns True, the algorithm will stop.
     x0 : ndarray, shape(n,), optional
         Coordinates of a single N-D starting point.
+    local_search_options : dict, optional
+        Backwards compatible flag for `minimizer_kwargs`, only one of these
+        should be supplied.
+
+        .. deprecated:: 1.8.0
+            dual_annealing argument `local_search_options` is deprecated in
+            favor of `minimizer_kwargs` and will be removed in SciPy 1.10.0.
 
     Returns
     -------
@@ -320,7 +329,6 @@ def dual_annealing(func, bounds, args=..., maxiter=..., minimizer_kwargs=..., in
     The function involved is called Rastrigin
     (https://en.wikipedia.org/wiki/Rastrigin_function)
 
-    >>> import numpy as np
     >>> from scipy.optimize import dual_annealing
     >>> func = lambda x: np.sum(x*x - 10*np.cos(2*np.pi*x)) + 10*np.size(x)
     >>> lw = [-5.12] * 10

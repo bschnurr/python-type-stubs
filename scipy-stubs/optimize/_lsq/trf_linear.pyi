@@ -8,7 +8,8 @@ def regularized_lsq_with_qr(m, n, R, QTb, perm, diag, copy_R=...): # -> NDArray[
     """Solve regularized least squares using information from QR-decomposition.
 
     The initial problem is to solve the following system in a least-squares
-    sense::
+    sense:
+    ::
 
         A x = b
         D x = 0

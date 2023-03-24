@@ -417,10 +417,6 @@ Large-scale nonlinear solvers:
    newton_krylov
    anderson
 
-   BroydenFirst
-   InverseJacobian
-   KrylovJacobian
-
 Simple iteration solvers:
 
 .. autosummary::

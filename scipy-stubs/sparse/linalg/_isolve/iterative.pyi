@@ -15,7 +15,6 @@ def set_docstring(header, Ainfo, footer=..., atol_default=...): # -> (fn: Unknow
 @set_docstring('Use BIConjugate Gradient iteration to solve ``Ax = b``.', 'The real or complex N-by-N matrix of the linear system.\n' 'Alternatively, ``A`` can be a linear operator which can\n' 'produce ``Ax`` and ``A^T x`` using, e.g.,\n' '``scipy.sparse.linalg.LinearOperator``.', footer="""\
                Examples
                --------
-               >>> import numpy as np
                >>> from scipy.sparse import csc_matrix
                >>> from scipy.sparse.linalg import bicg
                >>> A = csc_matrix([[3, 2, 0], [1, -1, 0], [0, 5, 1]], dtype=float)
@@ -28,13 +27,12 @@ def set_docstring(header, Ainfo, footer=..., atol_default=...): # -> (fn: Unknow
 
                """)
 @non_reentrant()
-def bicg(A, b, x0=..., tol=..., maxiter=..., M=..., callback=..., atol=...): # -> tuple[NDArray[Any] | ndarray[Any, dtype[Unknown]] | ndarray[Any, Unknown], Literal[0]] | tuple[Any, Any]:
+def bicg(A, b, x0=..., tol=..., maxiter=..., M=..., callback=..., atol=...): # -> tuple[NDArray[Any] | ndarray[Any, Unknown] | ndarray[Any, dtype[Unknown]], Literal[0]] | tuple[Any, Any]:
     ...
 
 @set_docstring('Use BIConjugate Gradient STABilized iteration to solve ' '``Ax = b``.', 'The real or complex N-by-N matrix of the linear system.\n' 'Alternatively, ``A`` can be a linear operator which can\n' 'produce ``Ax`` using, e.g.,\n' '``scipy.sparse.linalg.LinearOperator``.', footer="""\
                Examples
                --------
-               >>> import numpy as np
                >>> from scipy.sparse import csc_matrix
                >>> from scipy.sparse.linalg import bicgstab
                >>> R = np.array([[4, 2, 0, 1],
@@ -50,13 +48,12 @@ def bicg(A, b, x0=..., tol=..., maxiter=..., M=..., callback=..., atol=...): # -
                True
                """)
 @non_reentrant()
-def bicgstab(A, b, x0=..., tol=..., maxiter=..., M=..., callback=..., atol=...): # -> tuple[NDArray[Any] | ndarray[Any, dtype[Unknown]] | ndarray[Any, Unknown], Literal[0]] | tuple[Any, Any]:
+def bicgstab(A, b, x0=..., tol=..., maxiter=..., M=..., callback=..., atol=...): # -> tuple[NDArray[Any] | ndarray[Any, Unknown] | ndarray[Any, dtype[Unknown]], Literal[0]] | tuple[Any, Any]:
     ...
 
 @set_docstring('Use Conjugate Gradient iteration to solve ``Ax = b``.', 'The real or complex N-by-N matrix of the linear system.\n' '``A`` must represent a hermitian, positive definite matrix.\n' 'Alternatively, ``A`` can be a linear operator which can\n' 'produce ``Ax`` using, e.g.,\n' '``scipy.sparse.linalg.LinearOperator``.', footer="""\
                Examples
                --------
-               >>> import numpy as np
                >>> from scipy.sparse import csc_matrix
                >>> from scipy.sparse.linalg import cg
                >>> P = np.array([[4, 0, 1, 0],
@@ -73,13 +70,12 @@ def bicgstab(A, b, x0=..., tol=..., maxiter=..., M=..., callback=..., atol=...):
 
                """)
 @non_reentrant()
-def cg(A, b, x0=..., tol=..., maxiter=..., M=..., callback=..., atol=...): # -> tuple[NDArray[Any] | ndarray[Any, dtype[Unknown]] | ndarray[Any, Unknown], Literal[0]] | tuple[Any, Any]:
+def cg(A, b, x0=..., tol=..., maxiter=..., M=..., callback=..., atol=...): # -> tuple[NDArray[Any] | ndarray[Any, Unknown] | ndarray[Any, dtype[Unknown]], Literal[0]] | tuple[Any, Any]:
     ...
 
 @set_docstring('Use Conjugate Gradient Squared iteration to solve ``Ax = b``.', 'The real-valued N-by-N matrix of the linear system.\n' 'Alternatively, ``A`` can be a linear operator which can\n' 'produce ``Ax`` using, e.g.,\n' '``scipy.sparse.linalg.LinearOperator``.', footer="""\
                Examples
                --------
-               >>> import numpy as np
                >>> from scipy.sparse import csc_matrix
                >>> from scipy.sparse.linalg import cgs
                >>> R = np.array([[4, 2, 0, 1],
@@ -95,7 +91,7 @@ def cg(A, b, x0=..., tol=..., maxiter=..., M=..., callback=..., atol=...): # -> 
                True
                """)
 @non_reentrant()
-def cgs(A, b, x0=..., tol=..., maxiter=..., M=..., callback=..., atol=...): # -> tuple[NDArray[Any] | ndarray[Any, dtype[Unknown]] | ndarray[Any, Unknown], Literal[0]] | tuple[Any, Any | Literal[0]]:
+def cgs(A, b, x0=..., tol=..., maxiter=..., M=..., callback=..., atol=...): # -> tuple[NDArray[Any] | ndarray[Any, Unknown] | ndarray[Any, dtype[Unknown]], Literal[0]] | tuple[Any, Any | Literal[0]]:
     ...
 
 @non_reentrant()
@@ -161,11 +157,8 @@ def gmres(A, b, x0=..., tol=..., restart=..., maxiter=..., M=..., callback=..., 
           - ``legacy`` (default): same as ``pr_norm``, but also changes the
             meaning of 'maxiter' to count inner iterations instead of restart
             cycles.
-    restrt : int, optional, deprecated
-
-        .. deprecated:: 0.11.0
-           `gmres` keyword argument `restrt` is deprecated infavour of
-           `restart` and will be removed in SciPy 1.12.0.
+    restrt : int, optional
+        DEPRECATED - use `restart` instead.
 
     See Also
     --------
@@ -185,7 +178,6 @@ def gmres(A, b, x0=..., tol=..., restart=..., maxiter=..., M=..., callback=..., 
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.sparse import csc_matrix
     >>> from scipy.sparse.linalg import gmres
     >>> A = csc_matrix([[3, 2, 0], [1, -1, 0], [0, 5, 1]], dtype=float)
@@ -254,7 +246,6 @@ def qmr(A, b, x0=..., tol=..., maxiter=..., M1=..., M2=..., callback=..., atol=.
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.sparse import csc_matrix
     >>> from scipy.sparse.linalg import qmr
     >>> A = csc_matrix([[3, 2, 0], [1, -1, 0], [0, 5, 1]], dtype=float)

@@ -10,7 +10,7 @@ from ._index import IndexMixin
 __docformat__ = ...
 __all__ = ['lil_matrix', 'isspmatrix_lil']
 class lil_matrix(spmatrix, IndexMixin):
-    """Row-based LIst of Lists sparse matrix
+    """Row-based list of lists sparse matrix
 
     This is a structure for constructing sparse matrices incrementally.
     Note that inserting a single item can take linear time in the worst case;
@@ -45,6 +45,7 @@ class lil_matrix(spmatrix, IndexMixin):
 
     Notes
     -----
+
     Sparse matrices can be used in arithmetic operations: they support
     addition, subtraction, multiplication, division, and matrix power.
 

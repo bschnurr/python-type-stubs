@@ -25,9 +25,9 @@ class RegularGridInterpolator:
 
     method : str, optional
         The method of interpolation to perform. Supported are "linear",
-        "nearest", "slinear", "cubic", "quintic" and "pchip". This
-        parameter will become the default for the object's ``__call__``
-        method. Default is "linear".
+        "nearest", "slinear", "cubic", and "quintic". This parameter will
+        become the default for the object's ``__call__`` method.
+        Default is "linear".
 
     bounds_error : bool, optional
         If True, when interpolated values are requested outside of the
@@ -76,10 +76,6 @@ class RegularGridInterpolator:
 
     .. versionadded:: 1.9
 
-    If the input data is such that dimensions have incommensurate
-    units and differ by many orders of magnitude, the interpolant may have
-    numerical artifacts. Consider rescaling the data before interpolating.
-
     Examples
     --------
     **Evaluate a function on the points of a 3-D grid**
@@ -88,7 +84,6 @@ class RegularGridInterpolator:
     a 3-D grid:
 
     >>> from scipy.interpolate import RegularGridInterpolator
-    >>> import numpy as np
     >>> def f(x, y, z):
     ...     return 2 * x**3 + 3 * y**2 - z
     >>> x = np.linspace(1, 4, 11)
@@ -185,7 +180,7 @@ class RegularGridInterpolator:
     def __init__(self, points, values, method=..., bounds_error=..., fill_value=...) -> None:
         ...
     
-    def __call__(self, xi, method=...): # -> ndarray[Any, dtype[Any]] | ndarray[Any, dtype[bool_]] | ndarray[Any, dtype[Unknown]]:
+    def __call__(self, xi, method=...): # -> ndarray[Any, dtype[floating[Any]]] | ndarray[Any, dtype[Any]] | ndarray[Any, dtype[Unknown]]:
         """
         Interpolation at coordinates.
 
@@ -194,28 +189,14 @@ class RegularGridInterpolator:
         xi : ndarray of shape (..., ndim)
             The coordinates to evaluate the interpolator at.
 
-        method : str, optional
-            The method of interpolation to perform. Supported are "linear",
-            "nearest", "slinear", "cubic", "quintic" and "pchip". Default is
-            the method chosen when the interpolator was created.
-
-        Returns
-        -------
-        values_x : ndarray, shape xi.shape[:-1] + values.shape[ndim:]
-            Interpolated values at `xi`. See notes for behaviour when
-            ``xi.ndim == 1``.
-
-        Notes
-        -----
-        In the case that ``xi.ndim == 1`` a new axis is inserted into
-        the 0 position of the returned array, values_x, so its shape is
-        instead ``(1,) + values.shape[ndim:]``.
+        method : str
+            The method of interpolation to perform. Supported are "linear" and
+            "nearest".
 
         Examples
         --------
         Here we define a nearest-neighbor interpolator of a simple function
 
-        >>> import numpy as np
         >>> x, y = np.array([0, 1, 2]), np.array([1, 3, 7])
         >>> def f(x, y):
         ...     return x**2 + y**2
@@ -239,7 +220,7 @@ class RegularGridInterpolator:
     
 
 
-def interpn(points, values, xi, method=..., bounds_error=..., fill_value=...): # -> ndarray[Any, dtype[Any]] | ndarray[Any, dtype[bool_]] | ndarray[Any, dtype[Unknown]] | None:
+def interpn(points, values, xi, method=..., bounds_error=..., fill_value=...): # -> ndarray[Any, dtype[floating[Any]]] | ndarray[Any, dtype[Any]] | ndarray[Any, dtype[Unknown]] | None:
     """
     Multidimensional interpolation on regular or rectilinear grids.
 
@@ -262,9 +243,9 @@ def interpn(points, values, xi, method=..., bounds_error=..., fill_value=...): #
         The coordinates to sample the gridded data at
 
     method : str, optional
-        The method of interpolation to perform. Supported are "linear",
-        "nearest", "slinear", "cubic", "quintic", "pchip", and "splinef2d".
-        "splinef2d" is only supported for 2-dimensional data.
+        The method of interpolation to perform. Supported are "linear" and
+        "nearest", and "splinef2d". "splinef2d" is only supported for
+        2-dimensional data.
 
     bounds_error : bool, optional
         If True, when interpolated values are requested outside of the
@@ -280,27 +261,17 @@ def interpn(points, values, xi, method=..., bounds_error=..., fill_value=...): #
     Returns
     -------
     values_x : ndarray, shape xi.shape[:-1] + values.shape[ndim:]
-        Interpolated values at `xi`. See notes for behaviour when
-        ``xi.ndim == 1``.
+        Interpolated values at input coordinates.
 
     Notes
     -----
 
     .. versionadded:: 0.14
 
-    In the case that ``xi.ndim == 1`` a new axis is inserted into
-    the 0 position of the returned array, values_x, so its shape is
-    instead ``(1,) + values.shape[ndim:]``.
-
-    If the input data is such that input dimensions have incommensurate
-    units and differ by many orders of magnitude, the interpolant may have
-    numerical artifacts. Consider rescaling the data before interpolation.
-
     Examples
     --------
     Evaluate a simple example function on the points of a regular 3-D grid:
 
-    >>> import numpy as np
     >>> from scipy.interpolate import interpn
     >>> def value_func_3d(x, y, z):
     ...     return 2 * x + 3 * y - z

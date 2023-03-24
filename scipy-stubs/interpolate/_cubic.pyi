@@ -206,7 +206,6 @@ def pchip_interpolate(xi, yi, x, der=..., axis=...): # -> ndarray[Any, dtype[com
     --------
     We can interpolate 2D observed data using pchip interpolation:
 
-    >>> import numpy as np
     >>> import matplotlib.pyplot as plt
     >>> from scipy.interpolate import pchip_interpolate
     >>> x_observed = np.linspace(0.0, 10.0, 11)
@@ -394,7 +393,6 @@ class CubicSpline(CubicHermiteSpline):
     You can see that the spline continuity property holds for the first and
     second derivatives and violates only for the third derivative.
 
-    >>> import numpy as np
     >>> from scipy.interpolate import CubicSpline
     >>> import matplotlib.pyplot as plt
     >>> x = np.arange(10)

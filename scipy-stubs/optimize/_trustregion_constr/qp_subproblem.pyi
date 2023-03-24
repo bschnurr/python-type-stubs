@@ -133,7 +133,7 @@ def box_sphere_intersections(z, d, lb, ub, trust_radius, entire_line=..., extra_
     -------
     ta, tb : float
         The line/segment ``x(t) = z + t*d`` is inside the rectangular box and
-        inside the ball for ``ta <= t <= tb``.
+        inside the ball for for ``ta <= t <= tb``.
     intersect : bool
         When ``True``, there is a intersection between the line (or segment)
         and both constraints. On the other hand, when ``False``, there is no

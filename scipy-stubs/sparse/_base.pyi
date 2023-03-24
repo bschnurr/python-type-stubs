@@ -38,7 +38,7 @@ class spmatrix:
         ...
     
     shape = ...
-    def reshape(self, *args, **kwargs): # -> spmatrix | Self@spmatrix:
+    def reshape(self, *args, **kwargs) -> "spmatrix":
         """reshape(self, shape, order='C', copy=False)
 
         Gives a new shape to a sparse matrix without changing its data.
@@ -96,7 +96,7 @@ class spmatrix:
         """
         ...
     
-    def astype(self, dtype, casting=..., copy=...): # -> spmatrix | Self@spmatrix:
+    def astype(self, dtype, casting=..., copy=...) -> "spmatrix":
         """Cast the matrix elements to a specified type.
 
         Parameters
@@ -119,14 +119,14 @@ class spmatrix:
         """
         ...
     
-    def asfptype(self): # -> Self@spmatrix | spmatrix:
+    def asfptype(self) -> "spmatrix":
         """Upcast matrix to a floating point format (if necessary)"""
         ...
     
     def __iter__(self): # -> Generator[Unknown, None, None]:
         ...
     
-    def getmaxprint(self): # -> int:
+    def getmaxprint(self) -> int:
         """Maximum number of elements to display when printed."""
         ...
     
@@ -343,7 +343,7 @@ class spmatrix:
         """
         ...
     
-    def conj(self, copy=...): # -> spmatrix | Self@spmatrix:
+    def conj(self, copy=...) -> "spmatrix":
         """Element-wise complex conjugation.
 
         If the matrix is of non-complex data type and `copy` is False,
@@ -361,7 +361,7 @@ class spmatrix:
         """
         ...
     
-    def conjugate(self, copy=...): # -> spmatrix | Self@spmatrix:
+    def conjugate(self, copy=...) -> "spmatrix":
         ...
     
     def getH(self):
@@ -524,7 +524,7 @@ class spmatrix:
         """
         ...
     
-    def copy(self): # -> spmatrix:
+    def copy(self) -> "spmatrix":
         """Returns a copy of this matrix.
 
         No data/indices will be shared between the returned value and current
@@ -673,7 +673,7 @@ class spmatrix:
     
 
 
-def isspmatrix(x): # -> bool:
+def isspmatrix(x) -> bool:
     """Is x of a sparse matrix type?
 
     Parameters

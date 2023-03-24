@@ -64,7 +64,6 @@ def onenormest(A, t=..., itmax=..., compute_v=..., compute_w=...): # -> tuple[An
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.sparse import csc_matrix
     >>> from scipy.sparse.linalg import onenormest
     >>> A = csc_matrix([[1., 0., 0.], [5., 8., 2.], [0., -1., 0.]], dtype=float)

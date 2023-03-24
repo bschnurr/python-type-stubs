@@ -15,7 +15,6 @@ Functions for creating and analyzing contingency tables.
 
    chi2_contingency
    relative_risk
-   odds_ratio
    crosstab
    association
 
@@ -23,7 +22,7 @@ Functions for creating and analyzing contingency tables.
    margins
 
 """
-__all__ = ['margins', 'expected_freq', 'chi2_contingency', 'crosstab', 'association', 'relative_risk', 'odds_ratio']
+__all__ = ['margins', 'expected_freq', 'chi2_contingency', 'crosstab', 'association', 'relative_risk']
 def margins(a): # -> list[Unknown]:
     """Return a list of the marginal sums of the array `a`.
 
@@ -42,13 +41,11 @@ def margins(a): # -> list[Unknown]:
 
     Examples
     --------
-    >>> import numpy as np
-    >>> from scipy.stats.contingency import margins
-
     >>> a = np.arange(12).reshape(2, 6)
     >>> a
     array([[ 0,  1,  2,  3,  4,  5],
            [ 6,  7,  8,  9, 10, 11]])
+    >>> from scipy.stats.contingency import margins
     >>> m0, m1 = margins(a)
     >>> m0
     array([[15],
@@ -94,7 +91,6 @@ def expected_freq(observed): # -> Any:
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.stats.contingency import expected_freq
     >>> observed = np.array([[10, 10, 20],[20, 20, 20]])
     >>> expected_freq(observed)
@@ -104,8 +100,7 @@ def expected_freq(observed): # -> Any:
     """
     ...
 
-Chi2ContingencyResult = ...
-def chi2_contingency(observed, correction=..., lambda_=...): # -> _:
+def chi2_contingency(observed, correction=..., lambda_=...): # -> tuple[float | Unknown, float | Unknown, Any, Any]:
     """Chi-square test of independence of variables in a contingency table.
 
     This function computes the chi-square statistic and p-value for the
@@ -136,17 +131,14 @@ def chi2_contingency(observed, correction=..., lambda_=...): # -> _:
 
     Returns
     -------
-    res : Chi2ContingencyResult
-        An object containing attributes:
-
-        statistic : float
-            The test statistic.
-        pvalue : float
-            The p-value of the test.
-        dof : int
-            The degrees of freedom.
-        expected_freq : ndarray, same shape as `observed`
-            The expected frequencies, based on the marginal sums of the table.
+    chi2 : float
+        The test statistic.
+    p : float
+        The p-value of the test
+    dof : int
+        Degrees of freedom
+    expected : ndarray, same shape as `observed`
+        The expected frequencies, based on the marginal sums of the table.
 
     See Also
     --------
@@ -172,19 +164,18 @@ def chi2_contingency(observed, correction=..., lambda_=...): # -> _:
     This function does not handle masked arrays, because the calculation
     does not make sense with missing values.
 
-    Like `scipy.stats.chisquare`, this function computes a chi-square
-    statistic; the convenience this function provides is to figure out the
-    expected frequencies and degrees of freedom from the given contingency
-    table. If these were already known, and if the Yates' correction was not
-    required, one could use `scipy.stats.chisquare`.  That is, if one calls::
+    Like stats.chisquare, this function computes a chi-square statistic;
+    the convenience this function provides is to figure out the expected
+    frequencies and degrees of freedom from the given contingency table.
+    If these were already known, and if the Yates' correction was not
+    required, one could use stats.chisquare.  That is, if one calls::
 
-        res = chi2_contingency(obs, correction=False)
+        chi2, p, dof, ex = chi2_contingency(obs, correction=False)
 
     then the following is true::
 
-        (res.statistic, res.pvalue) == stats.chisquare(obs.ravel(),
-                                                       f_exp=ex.ravel(),
-                                                       ddof=obs.size - 1 - dof)
+        (chi2, p) == stats.chisquare(obs.ravel(), f_exp=ex.ravel(),
+                                     ddof=obs.size - 1 - dof)
 
     The `lambda_` argument was added in version 0.13.0 of scipy.
 
@@ -202,28 +193,21 @@ def chi2_contingency(observed, correction=..., lambda_=...): # -> _:
     --------
     A two-way example (2 x 3):
 
-    >>> import numpy as np
     >>> from scipy.stats import chi2_contingency
     >>> obs = np.array([[10, 10, 20], [20, 20, 20]])
-    >>> res = chi2_contingency(obs)
-    >>> res.statistic
-    2.7777777777777777
-    >>> res.pvalue
-    0.24935220877729619
-    >>> res.dof
-    2
-    >>> res.expected_freq
-    array([[ 12.,  12.,  16.],
-           [ 18.,  18.,  24.]])
+    >>> chi2_contingency(obs)
+    (2.7777777777777777,
+     0.24935220877729619,
+     2,
+     array([[ 12.,  12.,  16.],
+            [ 18.,  18.,  24.]]))
 
     Perform the test using the log-likelihood ratio (i.e. the "G-test")
     instead of Pearson's chi-squared statistic.
 
-    >>> res = chi2_contingency(obs, lambda_="log-likelihood")
-    >>> res.statistic
-    2.7688587616781319
-    >>> res.pvalue
-    0.25046668010954165
+    >>> g, p, dof, expctd = chi2_contingency(obs, lambda_="log-likelihood")
+    >>> g, p
+    (2.7688587616781319, 0.25046668010954165)
 
     A four-way example (2 x 2 x 2 x 2):
 
@@ -236,11 +220,18 @@ def chi2_contingency(observed, correction=..., lambda_=...): # -> _:
     ...        [30, 22]],
     ...       [[14, 17],
     ...        [15, 16]]]])
-    >>> res = chi2_contingency(obs)
-    >>> res.statistic
-    8.7584514426741897
-    >>> res.pvalue
-    0.64417725029295503
+    >>> chi2_contingency(obs)
+    (8.7584514426741897,
+     0.64417725029295503,
+     11,
+     array([[[[ 14.15462386,  14.15462386],
+              [ 16.49423111,  16.49423111]],
+             [[ 11.2461395 ,  11.2461395 ],
+              [ 13.10500554,  13.10500554]]],
+            [[[ 19.5591166 ,  19.5591166 ],
+              [ 22.79202844,  22.79202844]],
+             [[ 15.54012004,  15.54012004],
+              [ 18.10873492,  18.10873492]]]]))
     """
     ...
 
@@ -303,7 +294,6 @@ def association(observed, method=..., correction=..., lambda_=...): # -> float:
     --------
     An example with a 4x2 contingency table:
 
-    >>> import numpy as np
     >>> from scipy.stats.contingency import association
     >>> obs4x2 = np.array([[100, 150], [203, 322], [420, 700], [320, 210]])
 

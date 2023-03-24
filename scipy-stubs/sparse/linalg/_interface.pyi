@@ -142,7 +142,7 @@ class LinearOperator:
         """
         ...
     
-    def matvec(self, x): # -> ndarray[Any, dtype[Unknown]] | ndarray[Any, Unknown]:
+    def matvec(self, x): # -> ndarray[Any, Unknown] | ndarray[Any, dtype[Unknown]]:
         """Matrix-vector multiplication.
 
         Performs the operation y=A*x where A is an MxN linear
@@ -244,10 +244,10 @@ class LinearOperator:
     def __call__(self, x):
         ...
     
-    def __mul__(self, x): # -> _ProductLinearOperator | _ScaledLinearOperator | ndarray[Any, dtype[Unknown]] | ndarray[Any, Unknown] | matrix[Any, dtype[Unknown]] | matrix[Unknown, Unknown]:
+    def __mul__(self, x): # -> _ProductLinearOperator | _ScaledLinearOperator | ndarray[Any, Unknown] | ndarray[Any, dtype[Unknown]] | matrix[Any, dtype[Unknown]] | matrix[Unknown, Unknown]:
         ...
     
-    def dot(self, x): # -> _ProductLinearOperator | _ScaledLinearOperator | ndarray[Any, dtype[Unknown]] | ndarray[Any, Unknown] | matrix[Any, dtype[Unknown]] | matrix[Unknown, Unknown]:
+    def dot(self, x): # -> _ProductLinearOperator | _ScaledLinearOperator | ndarray[Any, Unknown] | ndarray[Any, dtype[Unknown]] | matrix[Any, dtype[Unknown]] | matrix[Unknown, Unknown]:
         """Matrix-matrix or matrix-vector multiplication.
 
         Parameters
@@ -264,7 +264,7 @@ class LinearOperator:
         """
         ...
     
-    def __matmul__(self, other): # -> _ProductLinearOperator | _ScaledLinearOperator | ndarray[Any, dtype[Unknown]] | ndarray[Any, Unknown] | matrix[Any, dtype[Unknown]] | matrix[Unknown, Unknown]:
+    def __matmul__(self, other): # -> _ProductLinearOperator | _ScaledLinearOperator | ndarray[Any, Unknown] | ndarray[Any, dtype[Unknown]] | matrix[Any, dtype[Unknown]] | matrix[Unknown, Unknown]:
         ...
     
     def __rmatmul__(self, other): # -> _ScaledLinearOperator | _NotImplementedType:
@@ -403,7 +403,6 @@ def aslinearoperator(A): # -> LinearOperator | MatrixLinearOperator:
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.sparse.linalg import aslinearoperator
     >>> M = np.array([[1,2,3],[4,5,6]], dtype=np.int32)
     >>> aslinearoperator(M)

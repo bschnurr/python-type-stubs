@@ -8,7 +8,6 @@ import scipy.special as sc
 from functools import partial
 from scipy import integrate, interpolate, optimize
 from scipy.integrate._quadrature import _builtincoeffs
-from scipy.interpolate import RectBivariateSpline
 from scipy._lib._util import _lazywhere
 from .._distn_infrastructure import _ShapeInfo, rv_continuous
 from .._continuous_distns import _norm_cdf, _norm_pdf, expon, uniform

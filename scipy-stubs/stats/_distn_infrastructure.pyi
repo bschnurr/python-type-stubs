@@ -136,7 +136,6 @@ def argsreduce(cond, *args): # -> list[ndarray[Any, dtype[Any]]] | list[Unknown 
 
     Examples
     --------
-    >>> import numpy as np
     >>> rng = np.random.default_rng()
     >>> A = rng.random((4, 5))
     >>> B = 2
@@ -174,12 +173,12 @@ class rv_generic:
     def random_state(self): # -> RandomState | Generator:
         """Get or set the generator object for generating random variates.
 
-        If `random_state` is None (or `np.random`), the
-        `numpy.random.RandomState` singleton is used.
-        If `random_state` is an int, a new ``RandomState`` instance is used,
-        seeded with `random_state`.
-        If `random_state` is already a ``Generator`` or ``RandomState``
-        instance, that instance is used.
+        If `seed` is None (or `np.random`), the `numpy.random.RandomState`
+        singleton is used.
+        If `seed` is an int, a new ``RandomState`` instance is used,
+        seeded with `seed`.
+        If `seed` is already a ``Generator`` or ``RandomState`` instance then
+        that instance is used.
 
         """
         ...
@@ -228,12 +227,12 @@ class rv_generic:
         random_state : {None, int, `numpy.random.Generator`,
                         `numpy.random.RandomState`}, optional
 
-            If `random_state` is None (or `np.random`), the
-            `numpy.random.RandomState` singleton is used.
-            If `random_state` is an int, a new ``RandomState`` instance is
-            used, seeded with `random_state`.
-            If `random_state` is already a ``Generator`` or ``RandomState``
-            instance, that instance is used.
+            If `seed` is None (or `np.random`), the `numpy.random.RandomState`
+            singleton is used.
+            If `seed` is an int, a new ``RandomState`` instance is used,
+            seeded with `seed`.
+            If `seed` is already a ``Generator`` or ``RandomState`` instance
+            then that instance is used.
 
         Returns
         -------
@@ -243,7 +242,7 @@ class rv_generic:
         """
         ...
     
-    def stats(self, *args, **kwds): # -> ndarray[Any, dtype[Any]] | tuple[ndarray[Any, dtype[Any]], ...]:
+    def stats(self, *args, **kwds): # -> NDArray[Any] | tuple[NDArray[Any], ...]:
         """Some statistics of the given RV.
 
         Parameters
@@ -271,7 +270,7 @@ class rv_generic:
         """
         ...
     
-    def entropy(self, *args, **kwds): # -> ndarray[Any, dtype[Any]]:
+    def entropy(self, *args, **kwds): # -> NDArray[Any]:
         """Differential entropy of the RV.
 
         Parameters
@@ -288,7 +287,6 @@ class rv_generic:
         -----
         Entropy is defined base `e`:
 
-        >>> import numpy as np
         >>> drv = rv_discrete(values=((0, 1), (0.5, 0.5)))
         >>> np.allclose(drv.entropy(), np.log(2.0))
         True
@@ -296,7 +294,7 @@ class rv_generic:
         """
         ...
     
-    def moment(self, order=..., *args, **kwds): # -> ndarray[Any, dtype[float64]]:
+    def moment(self, order=..., *args, **kwds): # -> float | NDArray[float64]:
         """non-central moment of distribution of specified order.
 
         .. deprecated:: 1.9.0
@@ -345,7 +343,7 @@ class rv_generic:
         """
         ...
     
-    def mean(self, *args, **kwds): # -> ndarray[Any, dtype[Any]] | tuple[ndarray[Any, dtype[Any]], ...]:
+    def mean(self, *args, **kwds): # -> ndarray[Any, dtype[Any]] | tuple[NDArray[Any], ...]:
         """Mean of the distribution.
 
         Parameters
@@ -366,7 +364,7 @@ class rv_generic:
         """
         ...
     
-    def var(self, *args, **kwds): # -> ndarray[Any, dtype[Any]] | tuple[ndarray[Any, dtype[Any]], ...]:
+    def var(self, *args, **kwds): # -> ndarray[Any, dtype[Any]] | tuple[NDArray[Any], ...]:
         """Variance of the distribution.
 
         Parameters
@@ -434,18 +432,6 @@ class rv_generic:
         a, b : ndarray of float
             end-points of range that contain ``100 * alpha %`` of the rv's
             possible values.
-
-        Notes
-        -----
-        This is implemented as ``ppf([p_tail, 1-p_tail])``, where
-        ``ppf`` is the inverse cumulative distribution function and
-        ``p_tail = (1-confidence)/2``. Suppose ``[c, d]`` is the support of a
-        discrete distribution; then ``ppf([0, 1]) == (c-1, d)``. Therefore,
-        when ``confidence=1`` and the distribution is discrete, the left end
-        of the interval will be beyond the support of the distribution.
-        For discrete distributions, the interval will limit the probability
-        in each tail to be less than or equal to ``p_tail`` (usually
-        strictly less).
 
         """
         ...
@@ -527,9 +513,10 @@ class rv_continuous(rv_generic):
     extradoc :  str, optional, deprecated
         This string is used as the last part of the docstring returned when a
         subclass has no docstring of its own. Note: `extradoc` exists for
-        backwards compatibility and will be removed in SciPy 1.11.0, do not
-        use for new subclasses.
-    seed : {None, int, `numpy.random.Generator`, `numpy.random.RandomState`}, optional
+        backwards compatibility, do not use for new subclasses.
+    seed : {None, int, `numpy.random.Generator`,
+            `numpy.random.RandomState`}, optional
+
         If `seed` is None (or `np.random`), the `numpy.random.RandomState`
         singleton is used.
         If `seed` is an int, a new ``RandomState`` instance is used,
@@ -1038,7 +1025,7 @@ class rv_continuous(rv_generic):
         """
         ...
     
-    def expect(self, func=..., args=..., loc=..., scale=..., lb=..., ub=..., conditional=..., **kwds): # -> ndarray[Any, dtype[Unknown]]:
+    def expect(self, func=..., args=..., loc=..., scale=..., lb=..., ub=..., conditional=..., **kwds):
         """Calculate expected value of a function with respect to the
         distribution by numerical integration.
 
@@ -1121,20 +1108,6 @@ class rv_continuous(rv_generic):
         1.0000000000000002
 
         The slight deviation from 1 is due to numerical integration.
-
-        The integrand can be treated as a complex-valued function
-        by passing ``complex_func=True`` to `scipy.integrate.quad` .
-
-        >>> import numpy as np
-        >>> from scipy.stats import vonmises
-        >>> res = vonmises(loc=2, kappa=1).expect(lambda x: np.exp(1j*x),
-        ...                                       complex_func=True)
-        >>> res
-        (-0.18576377217422957+0.40590124735052263j)
-
-        >>> np.angle(res)  # location of the (circular) distribution
-        2.0
-
         """
         ...
     
@@ -1182,9 +1155,10 @@ class rv_discrete(rv_generic):
     extradoc :  str, optional, deprecated
         This string is used as the last part of the docstring returned when a
         subclass has no docstring of its own. Note: `extradoc` exists for
-        backwards compatibility and will be removed in SciPy 1.11.0, do not
-        use for new subclasses.
-    seed : {None, int, `numpy.random.Generator`, `numpy.random.RandomState`}, optional
+        backwards compatibility, do not use for new subclasses.
+    seed : {None, int, `numpy.random.Generator`,
+            `numpy.random.RandomState`}, optional
+
         If `seed` is None (or `np.random`), the `numpy.random.RandomState`
         singleton is used.
         If `seed` is an int, a new ``RandomState`` instance is used,
@@ -1256,7 +1230,6 @@ class rv_discrete(rv_generic):
     --------
     Custom made discrete distribution:
 
-    >>> import numpy as np
     >>> from scipy import stats
     >>> xk = np.arange(7)
     >>> pk = (0.1, 0.2, 0.3, 0.1, 0.1, 0.0, 0.2)
@@ -1298,12 +1271,12 @@ class rv_discrete(rv_generic):
         random_state : {None, int, `numpy.random.Generator`,
                         `numpy.random.RandomState`}, optional
 
-            If `random_state` is None (or `np.random`), the
-            `numpy.random.RandomState` singleton is used.
-            If `random_state` is an int, a new ``RandomState`` instance is
-            used, seeded with `random_state`.
-            If `random_state` is already a ``Generator`` or ``RandomState``
-            instance, that instance is used.
+            If `seed` is None (or `np.random`), the `numpy.random.RandomState`
+            singleton is used.
+            If `seed` is an int, a new ``RandomState`` instance is used,
+            seeded with `seed`.
+            If `seed` is already a ``Generator`` or ``RandomState`` instance
+            then that instance is used.
 
         Returns
         -------

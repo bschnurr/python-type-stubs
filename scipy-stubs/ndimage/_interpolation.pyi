@@ -58,7 +58,6 @@ def spline_filter1d(input, order=..., axis=..., output=..., mode=...): # -> NDAr
     We can filter an image using 1-D spline along the given axis:
 
     >>> from scipy.ndimage import spline_filter1d
-    >>> import numpy as np
     >>> import matplotlib.pyplot as plt
     >>> orig_img = np.eye(20)  # create an image
     >>> orig_img[10, :] = 1.0
@@ -105,7 +104,6 @@ def spline_filter(input, order=..., output=..., mode=...): # -> NDArray[float64]
     We can filter an image using multidimentional splines:
 
     >>> from scipy.ndimage import spline_filter
-    >>> import numpy as np
     >>> import matplotlib.pyplot as plt
     >>> orig_img = np.eye(20)  # create an image
     >>> orig_img[10, :] = 1.0
@@ -278,7 +276,6 @@ def map_coordinates(input, coordinates, output=..., order=..., mode=..., cval=..
     Examples
     --------
     >>> from scipy import ndimage
-    >>> import numpy as np
     >>> a = np.arange(12.).reshape((4, 3))
     >>> a
     array([[  0.,   1.,   2.],
@@ -478,13 +475,13 @@ def zoom(input, zoom, output=..., order=..., mode=..., cval=..., prefilter=..., 
 
     Examples
     --------
-    >>> from scipy import ndimage, datasets
+    >>> from scipy import ndimage, misc
     >>> import matplotlib.pyplot as plt
 
     >>> fig = plt.figure()
     >>> ax1 = fig.add_subplot(121)  # left side
     >>> ax2 = fig.add_subplot(122)  # right side
-    >>> ascent = datasets.ascent()
+    >>> ascent = misc.ascent()
     >>> result = ndimage.zoom(ascent, 3.0)
     >>> ax1.imshow(ascent, vmin=0, vmax=255)
     >>> ax2.imshow(result, vmin=0, vmax=255)
@@ -540,11 +537,11 @@ def rotate(input, angle, axes=..., reshape=..., output=..., order=..., mode=...,
 
     Examples
     --------
-    >>> from scipy import ndimage, datasets
+    >>> from scipy import ndimage, misc
     >>> import matplotlib.pyplot as plt
     >>> fig = plt.figure(figsize=(10, 3))
     >>> ax1, ax2, ax3 = fig.subplots(1, 3)
-    >>> img = datasets.ascent()
+    >>> img = misc.ascent()
     >>> img_45 = ndimage.rotate(img, 45, reshape=False)
     >>> full_img_45 = ndimage.rotate(img, 45, reshape=True)
     >>> ax1.imshow(img, cmap='gray')
@@ -553,7 +550,7 @@ def rotate(input, angle, axes=..., reshape=..., output=..., order=..., mode=...,
     >>> ax2.set_axis_off()
     >>> ax3.imshow(full_img_45, cmap='gray')
     >>> ax3.set_axis_off()
-    >>> fig.set_layout_engine('tight')
+    >>> fig.set_tight_layout(True)
     >>> plt.show()
     >>> print(img.shape)
     (512, 512)

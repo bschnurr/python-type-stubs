@@ -107,7 +107,6 @@ def quadratic_assignment(A, B, method=..., options=...):
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.optimize import quadratic_assignment
     >>> A = np.array([[0, 80, 150, 170], [80, 0, 130, 100],
     ...               [150, 130, 0, 120], [170, 100, 120, 0]])
@@ -115,8 +114,8 @@ def quadratic_assignment(A, B, method=..., options=...):
     ...               [0, 0, 0, 3], [0, 0, 0, 0]])
     >>> res = quadratic_assignment(A, B)
     >>> print(res)
+     col_ind: array([0, 3, 2, 1])
          fun: 3260
-     col_ind: [0 3 2 1]
          nit: 9
 
     The see the relationship between the returned ``col_ind`` and ``fun``,
@@ -158,8 +157,8 @@ def quadratic_assignment(A, B, method=..., options=...):
     ...               [8, 5, 0, 5], [4, 2, 5, 0]])
     >>> res = quadratic_assignment(A, B)
     >>> print(res)
+     col_ind: array([1, 0, 3, 2])
          fun: 178
-     col_ind: [1 0 3 2]
          nit: 13
 
     If accuracy is important, consider using  :ref:`'2opt' <optimize.qap-2opt>`
@@ -169,8 +168,8 @@ def quadratic_assignment(A, B, method=..., options=...):
     >>> res = quadratic_assignment(A, B, method="2opt",
     ...                            options = {'partial_guess': guess})
     >>> print(res)
+     col_ind: array([1, 2, 3, 0])
          fun: 176
-     col_ind: [1 2 3 0]
          nit: 17
 
     """

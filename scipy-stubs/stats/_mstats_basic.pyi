@@ -76,19 +76,6 @@ def find_repeats(arr): # -> tuple[NDArray[float64], NDArray[intp]] | tuple[ndarr
     counts : ndarray
         Array of counts.
 
-    Examples
-    --------
-    >>> from scipy.stats import mstats
-    >>> mstats.find_repeats([2, 1, 2, 3, 2, 2, 5])
-    (array([2.]), array([4]))
-
-    In the above example, 2 repeats 4 times.
-
-    >>> mstats.find_repeats([[10, 20, 1, 2], [5, 5, 4, 4]])
-    (array([4., 5.]), array([2, 2]))
-
-    In the above example, both 4 and 5 repeat 2 times.
-
     """
     ...
 
@@ -111,7 +98,6 @@ def count_tied_groups(x, use_missing=...): # -> dict[Any, int]:
     Examples
     --------
     >>> from scipy.stats import mstats
-    >>> import numpy as np
     >>> z = [0, 0, 0, 2, 2, 2, 3, 3, 4, 5, 6]
     >>> mstats.count_tied_groups(z)
     {2: 1, 3: 2}
@@ -152,7 +138,7 @@ def rankdata(data, axis=..., use_missing=...): # -> ndarray[Any, dtype[Any]]:
     ...
 
 ModeResult = ...
-def mode(a, axis=...): # -> ModeResult:
+def mode(a, axis=..., **kwargs): # -> ModeResult:
     """
     Returns an array of the modal (most common) value in the passed array.
 
@@ -177,7 +163,6 @@ def mode(a, axis=...): # -> ModeResult:
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy import stats
     >>> from scipy.stats import mstats
     >>> m_arr = np.ma.array([1, 1, 0, 0, 0, 0], mask=[0, 0, 1, 1, 1, 0])
@@ -298,7 +283,6 @@ def pearsonr(x, y): # -> tuple[MaskedConstant, MaskedConstant] | PearsonRResult:
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy import stats
     >>> from scipy.stats import mstats
     >>> mstats.pearsonr([1, 2, 3, 4, 5], [10, 9, 2.5, 6, 4])
@@ -351,7 +335,8 @@ def pearsonr(x, y): # -> tuple[MaskedConstant, MaskedConstant] | PearsonRResult:
     """
     ...
 
-def spearmanr(x, y=..., use_ties=..., axis=..., nan_policy=..., alternative=...): # -> _:
+SpearmanrResult = ...
+def spearmanr(x, y=..., use_ties=..., axis=..., nan_policy=..., alternative=...): # -> SpearmanrResult:
     """
     Calculates a Spearman rank-order correlation coefficient and the p-value
     to test for non-correlation.
@@ -404,19 +389,10 @@ def spearmanr(x, y=..., use_ties=..., axis=..., nan_policy=..., alternative=...)
 
     Returns
     -------
-    res : SignificanceResult
-        An object containing attributes:
-
-        statistic : float or ndarray (2-D square)
-            Spearman correlation matrix or correlation coefficient (if only 2
-            variables are given as parameters). Correlation matrix is square
-            with length equal to total number of variables (columns or rows) in
-            ``a`` and ``b`` combined.
-        pvalue : float
-            The p-value for a hypothesis test whose null hypothesis
-            is that two sets of data are linearly uncorrelated. See
-            `alternative` above for alternative hypotheses. `pvalue` has the
-            same shape as `statistic`.
+    correlation : float
+        Spearman correlation coefficient
+    pvalue : float
+        2-tailed p-value.
 
     References
     ----------
@@ -425,7 +401,8 @@ def spearmanr(x, y=..., use_ties=..., axis=..., nan_policy=..., alternative=...)
     """
     ...
 
-def kendalltau(x, y, use_ties=..., use_missing=..., method=..., alternative=...): # -> _:
+KendalltauResult = ...
+def kendalltau(x, y, use_ties=..., use_missing=..., method=..., alternative=...): # -> KendalltauResult:
     """
     Computes Kendall's rank correlation tau on two variables *x* and *y*.
 
@@ -458,14 +435,10 @@ def kendalltau(x, y, use_ties=..., use_missing=..., method=..., alternative=...)
 
     Returns
     -------
-    res : SignificanceResult
-        An object containing attributes:
-
-        statistic : float
-           The tau statistic.
-        pvalue : float
-           The p-value for a hypothesis test whose null hypothesis is
-           an absence of association, tau = 0.
+    correlation : float
+        The Kendall tau statistic
+    pvalue : float
+        The p-value
 
     References
     ----------
@@ -622,113 +595,7 @@ def siegelslopes(y, x=..., method=...): # -> _:
     """
     ...
 
-SenSeasonalSlopesResult = ...
-def sen_seasonal_slopes(x): # -> _:
-    r"""
-    Computes seasonal Theil-Sen and Kendall slope estimators.
-
-    The seasonal generalization of Sen's slope computes the slopes between all
-    pairs of values within a "season" (column) of a 2D array. It returns an
-    array containing the median of these "within-season" slopes for each
-    season (the Theil-Sen slope estimator of each season), and it returns the
-    median of the within-season slopes across all seasons (the seasonal Kendall
-    slope estimator).
-
-    Parameters
-    ----------
-    x : 2D array_like
-        Each column of `x` contains measurements of the dependent variable
-        within a season. The independent variable (usually time) of each season
-        is assumed to be ``np.arange(x.shape[0])``.
-
-    Returns
-    -------
-    result : ``SenSeasonalSlopesResult`` instance
-        The return value is an object with the following attributes:
-
-        intra_slope : ndarray
-            For each season, the Theil-Sen slope estimator: the median of
-            within-season slopes.
-        inter_slope : float
-            The seasonal Kendall slope estimateor: the median of within-season
-            slopes *across all* seasons.
-
-    See Also
-    --------
-    theilslopes : the analogous function for non-seasonal data
-    scipy.stats.theilslopes : non-seasonal slopes for non-masked arrays
-
-    Notes
-    -----
-    The slopes :math:`d_{ijk}` within season :math:`i` are:
-
-    .. math::
-
-        d_{ijk} = \frac{x_{ij} - x_{ik}}
-                            {j - k}
-
-    for pairs of distinct integer indices :math:`j, k` of :math:`x`.
-
-    Element :math:`i` of the returned `intra_slope` array is the median of the
-    :math:`d_{ijk}` over all :math:`j < k`; this is the Theil-Sen slope
-    estimator of season :math:`i`. The returned `inter_slope` value, better
-    known as the seasonal Kendall slope estimator, is the median of the
-    :math:`d_{ijk}` over all :math:`i, j, k`.
-
-    References
-    ----------
-    .. [1] Hirsch, Robert M., James R. Slack, and Richard A. Smith.
-           "Techniques of trend analysis for monthly water quality data."
-           *Water Resources Research* 18.1 (1982): 107-121.
-
-    Examples
-    --------
-    Suppose we have 100 observations of a dependent variable for each of four
-    seasons:
-
-    >>> import numpy as np
-    >>> rng = np.random.default_rng()
-    >>> x = rng.random(size=(100, 4))
-
-    We compute the seasonal slopes as:
-
-    >>> from scipy import stats
-    >>> intra_slope, inter_slope = stats.mstats.sen_seasonal_slopes(x)
-
-    If we define a function to compute all slopes between observations within
-    a season:
-
-    >>> def dijk(yi):
-    ...     n = len(yi)
-    ...     x = np.arange(n)
-    ...     dy = yi - yi[:, np.newaxis]
-    ...     dx = x - x[:, np.newaxis]
-    ...     # we only want unique pairs of distinct indices
-    ...     mask = np.triu(np.ones((n, n), dtype=bool), k=1)
-    ...     return dy[mask]/dx[mask]
-
-    then element ``i`` of ``intra_slope`` is the median of ``dijk[x[:, i]]``:
-
-    >>> i = 2
-    >>> np.allclose(np.median(dijk(x[:, i])), intra_slope[i])
-    True
-
-    and ``inter_slope`` is the median of the values returned by ``dijk`` for
-    all seasons:
-
-    >>> all_slopes = np.concatenate([dijk(x[:, i]) for i in range(x.shape[1])])
-    >>> np.allclose(np.median(all_slopes), inter_slope)
-    True
-
-    Because the data are randomly generated, we would expect the median slopes
-    to be nearly zero both within and across all seasons, and indeed they are:
-
-    >>> intra_slope.data
-    array([ 0.00124504, -0.00277761, -0.00221245, -0.00036338])
-    >>> inter_slope
-    -0.0010511779872922058
-
-    """
+def sen_seasonal_slopes(x): # -> tuple[Unknown, Unknown]:
     ...
 
 Ttest_1sampResult = ...
@@ -938,7 +805,7 @@ def kruskal(*args): # -> KruskalResult:
 
 kruskalwallis = ...
 @_rename_parameter("mode", "method")
-def ks_1samp(x, cdf, args=..., alternative=..., method=...): # -> _:
+def ks_1samp(x, cdf, args=..., alternative=..., method=...): # -> KstestResult:
     """
     Computes the Kolmogorov-Smirnov test on one sample of masked values.
 
@@ -974,7 +841,7 @@ def ks_1samp(x, cdf, args=..., alternative=..., method=...): # -> _:
     ...
 
 @_rename_parameter("mode", "method")
-def ks_2samp(data1, data2, alternative=..., method=...): # -> _:
+def ks_2samp(data1, data2, alternative=..., method=...): # -> KstestResult:
     """
     Computes the Kolmogorov-Smirnov test on two samples.
 
@@ -1008,7 +875,7 @@ def ks_2samp(data1, data2, alternative=..., method=...): # -> _:
 
 ks_twosamp = ...
 @_rename_parameter("mode", "method")
-def kstest(data1, data2, args=..., alternative=..., method=...): # -> _:
+def kstest(data1, data2, args=..., alternative=..., method=...): # -> KstestResult:
     """
 
     Parameters
@@ -1048,7 +915,6 @@ def trima(a, limits=..., inclusive=...):
     Examples
     --------
     >>> from scipy.stats.mstats import trima
-    >>> import numpy as np
 
     >>> a = np.arange(10)
 
@@ -1275,7 +1141,6 @@ def tmean(a, limits=..., inclusive=..., axis=...):
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.stats import mstats
     >>> a = np.array([[6, 8, 3, 0],
     ...               [3, 9, 1, 2],
@@ -1361,7 +1226,6 @@ def tmin(a, lowerlimit=..., axis=..., inclusive=...):
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.stats import mstats
     >>> a = np.array([[6, 8, 3, 0],
     ...               [3, 2, 1, 2],
@@ -1409,7 +1273,6 @@ def tmax(a, upperlimit=..., axis=..., inclusive=...):
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.stats import mstats
     >>> a = np.array([[6, 8, 3, 0],
     ...               [3, 9, 1, 2],
@@ -1507,7 +1370,6 @@ def winsorize(a, limits=..., inclusive=..., inplace=..., axis=..., nan_policy=..
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.stats.mstats import winsorize
 
     A shuffled array contains integers from 1 to 10.
@@ -1587,7 +1449,6 @@ def variation(a, axis=..., ddof=...):
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.stats.mstats import variation
     >>> a = np.array([2,8,4])
     >>> variation(a)
@@ -1711,7 +1572,6 @@ def describe(a, axis=..., ddof=..., bias=...): # -> DescribeResult:
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.stats.mstats import describe
     >>> ma = np.ma.array(range(6), mask=[0, 0, 0, 1, 1, 1])
     >>> describe(ma)
@@ -1915,7 +1775,6 @@ def mquantiles(a, prob=..., alphap=..., betap=..., axis=..., limit=...):
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.stats.mstats import mquantiles
     >>> a = np.array([6., 47., 49., 15., 42., 41., 7., 39., 43., 40., 36.])
     >>> mquantiles(a)
@@ -2048,7 +1907,6 @@ def sem(a, axis=..., ddof=...):
     --------
     Find standard error along the first axis:
 
-    >>> import numpy as np
     >>> from scipy import stats
     >>> a = np.arange(20).reshape(5,4)
     >>> print(stats.mstats.sem(a))

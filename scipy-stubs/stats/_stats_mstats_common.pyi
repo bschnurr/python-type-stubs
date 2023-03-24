@@ -81,7 +81,6 @@ def linregress(x, y=..., alternative=...): # -> _:
 
     Examples
     --------
-    >>> import numpy as np
     >>> import matplotlib.pyplot as plt
     >>> from scipy import stats
     >>> rng = np.random.default_rng()
@@ -200,7 +199,6 @@ def theilslopes(y, x=..., alpha=..., method=...): # -> _:
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy import stats
     >>> import matplotlib.pyplot as plt
 
@@ -303,7 +301,6 @@ def siegelslopes(y, x=..., method=...): # -> _:
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy import stats
     >>> import matplotlib.pyplot as plt
 

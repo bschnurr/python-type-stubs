@@ -49,7 +49,6 @@ class NearestNDInterpolator(NDInterpolatorBase):
     We can interpolate values on a 2D plane:
 
     >>> from scipy.interpolate import NearestNDInterpolator
-    >>> import numpy as np
     >>> import matplotlib.pyplot as plt
     >>> rng = np.random.default_rng()
     >>> x = rng.random(10) - 0.5
@@ -96,7 +95,7 @@ class NearestNDInterpolator(NDInterpolatorBase):
     
 
 
-def griddata(points, values, xi, method=..., fill_value=..., rescale=...): # -> ndarray[Any, dtype[Unknown]] | Any:
+def griddata(points, values, xi, method=..., fill_value=..., rescale=...): # -> ndarray[Any, dtype[Unknown]]:
     """
     Interpolate unstructured D-D data.
 
@@ -152,14 +151,11 @@ def griddata(points, values, xi, method=..., fill_value=..., rescale=...): # -> 
 
     .. versionadded:: 0.9
 
-    For data on a regular grid use `interpn` instead.
-
     Examples
     --------
 
     Suppose we want to interpolate the 2-D function
 
-    >>> import numpy as np
     >>> def func(x, y):
     ...     return x*(1-x)*np.cos(4*np.pi*x) * np.sin(4*np.pi*y**2)**2
 

@@ -17,7 +17,7 @@ def lu_factor(a, overwrite_a=..., check_finite=...): # -> tuple[Unknown, Unknown
 
     Parameters
     ----------
-    a : (M, N) array_like
+    a : (M, M) array_like
         Matrix to decompose
     overwrite_a : bool, optional
         Whether to overwrite data in A (may increase performance)
@@ -28,7 +28,7 @@ def lu_factor(a, overwrite_a=..., check_finite=...): # -> tuple[Unknown, Unknown
 
     Returns
     -------
-    lu : (M, N) ndarray
+    lu : (N, N) ndarray
         Matrix containing U in its upper triangle, and L in its lower triangle.
         The unit diagonal elements of L are not stored.
     piv : (N,) ndarray
@@ -37,18 +37,14 @@ def lu_factor(a, overwrite_a=..., check_finite=...): # -> tuple[Unknown, Unknown
 
     See Also
     --------
-    lu : gives lu factorization in more user-friendly format
     lu_solve : solve an equation system using the LU factorization of a matrix
 
     Notes
     -----
-    This is a wrapper to the ``*GETRF`` routines from LAPACK. Unlike
-    :func:`lu`, it outputs the L and U factors into a single array
-    and returns pivot indices instead of a permutation matrix.
+    This is a wrapper to the ``*GETRF`` routines from LAPACK.
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.linalg import lu_factor
     >>> A = np.array([[2, 5, 8, 7], [5, 2, 2, 8], [7, 5, 6, 6], [5, 4, 4, 8]])
     >>> lu, piv = lu_factor(A)
@@ -101,7 +97,6 @@ def lu_solve(lu_and_piv, b, trans=..., overwrite_b=..., check_finite=...):
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.linalg import lu_factor, lu_solve
     >>> A = np.array([[2, 5, 8, 7], [5, 2, 2, 8], [7, 5, 6, 6], [5, 4, 4, 8]])
     >>> b = np.array([1, 1, 1, 1])
@@ -163,7 +158,6 @@ def lu(a, permute_l=..., overwrite_a=..., check_finite=...): # -> tuple[Unknown,
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.linalg import lu
     >>> A = np.array([[2, 5, 8, 7], [5, 2, 2, 8], [7, 5, 6, 6], [5, 4, 4, 8]])
     >>> p, l, u = lu(A)

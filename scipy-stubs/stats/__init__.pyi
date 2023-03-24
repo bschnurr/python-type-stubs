@@ -16,11 +16,10 @@ from .contingency import chi2_contingency
 from ._resampling import bootstrap, monte_carlo_test, permutation_test
 from ._entropy import *
 from ._hypotests import *
-from ._rvs_sampling import rvs_ratio_uniforms
+from ._rvs_sampling import NumericalInverseHermite, rvs_ratio_uniforms
 from ._page_trend_test import page_trend_test
 from ._mannwhitneyu import mannwhitneyu
-from ._fit import fit, goodness_of_fit
-from ._covariance import Covariance
+from ._fit import fit
 from scipy._lib._testutils import PytestTester
 
 """
@@ -111,7 +110,6 @@ Continuous distributions
    genhyperbolic     -- Generalized Hyperbolic
    geninvgauss       -- Generalized Inverse Gaussian
    gibrat            -- Gibrat
-   gilbrat           -- Gilbrat
    gompertz          -- Gompertz (Truncated Gumbel)
    gumbel_r          -- Right Sided Gumbel, Log-Weibull, Fisher-Tippett, Extreme Value Type I
    gumbel_l          -- Left Sided Gumbel, etc.
@@ -168,7 +166,6 @@ Continuous distributions
    triang            -- Triangular
    truncexpon        -- Truncated Exponential
    truncnorm         -- Truncated Normal
-   truncpareto       -- Truncated Pareto
    truncweibull_min  -- Truncated minimum Weibull distribution
    tukeylambda       -- Tukey-Lambda
    uniform           -- Uniform
@@ -197,17 +194,6 @@ Multivariate distributions
    random_correlation     -- random correlation matrices
    multivariate_t         -- Multivariate t-distribution
    multivariate_hypergeom -- Multivariate hypergeometric distribution
-   random_table           -- Distribution of random tables with given marginals
-   uniform_direction      -- Uniform distribution on S(N-1)
-
-`scipy.stats.multivariate_normal` methods accept instances
-of the following class to represent the covariance.
-
-.. autosummary::
-   :toctree: generated/
-
-   Covariance             -- Representation of a covariance matrix
-
 
 Discrete distributions
 ----------------------
@@ -251,7 +237,6 @@ Summary statistics
    kurtosis          -- Fisher or Pearson kurtosis
    mode              -- Modal value
    moment            -- Central moment
-   expectile         -- Expectile
    skew              -- Skewness
    kstat             --
    kstatvar          --
@@ -340,7 +325,6 @@ Statistical tests
    jarque_bera
    page_trend_test
    tukey_hsd
-   poisson_means_test
 
 .. autosummary::
    :toctree: generated/
@@ -359,7 +343,6 @@ Statistical tests
    skewtest
    kurtosistest
    normaltest
-   goodness_of_fit
 
 
 Quasi-Monte Carlo
@@ -444,13 +427,12 @@ Distribution Fitting
 
    fit
 
-Directional statistical functions
----------------------------------
+Circular statistical functions
+------------------------------
 
 .. autosummary::
    :toctree: generated/
 
-   directional_stats
    circmean
    circvar
    circstd
@@ -467,7 +449,6 @@ Contingency table functions
    contingency.margins
    contingency.relative_risk
    contingency.association
-   contingency.odds_ratio
    fisher_exact
    barnard_exact
    boschloo_exact

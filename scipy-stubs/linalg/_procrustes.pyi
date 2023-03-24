@@ -55,7 +55,6 @@ def orthogonal_procrustes(A, B, check_finite=...): # -> tuple[Unknown, Unknown]:
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.linalg import orthogonal_procrustes
     >>> A = np.array([[ 2,  0,  1], [-2,  0,  0]])
 

@@ -38,7 +38,7 @@ def dctn(x, type=..., s=..., axes=..., norm=..., overwrite_x=..., workers=..., *
         See :func:`~scipy.fft.fft` for more details.
     orthogonalize : bool, optional
         Whether to use the orthogonalized DCT variant (see Notes).
-        Defaults to ``True`` when ``norm="ortho"`` and ``False`` otherwise.
+        Defaults to ``True`` when ``norm=="ortho"`` and ``False`` otherwise.
 
         .. versionadded:: 1.8.0
 
@@ -58,7 +58,6 @@ def dctn(x, type=..., s=..., axes=..., norm=..., overwrite_x=..., workers=..., *
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.fft import dctn, idctn
     >>> rng = np.random.default_rng()
     >>> y = rng.standard_normal((16, 16))
@@ -101,7 +100,7 @@ def idctn(x, type=..., s=..., axes=..., norm=..., overwrite_x=..., workers=..., 
         See :func:`~scipy.fft.fft` for more details.
     orthogonalize : bool, optional
         Whether to use the orthogonalized IDCT variant (see Notes).
-        Defaults to ``True`` when ``norm="ortho"`` and ``False`` otherwise.
+        Defaults to ``True`` when ``norm=="ortho"`` and ``False`` otherwise.
 
         .. versionadded:: 1.8.0
 
@@ -121,7 +120,6 @@ def idctn(x, type=..., s=..., axes=..., norm=..., overwrite_x=..., workers=..., 
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.fft import dctn, idctn
     >>> rng = np.random.default_rng()
     >>> y = rng.standard_normal((16, 16))
@@ -164,7 +162,7 @@ def dstn(x, type=..., s=..., axes=..., norm=..., overwrite_x=..., workers=..., o
         See :func:`~scipy.fft.fft` for more details.
     orthogonalize : bool, optional
         Whether to use the orthogonalized DST variant (see Notes).
-        Defaults to ``True`` when ``norm="ortho"`` and ``False`` otherwise.
+        Defaults to ``True`` when ``norm=="ortho"`` and ``False`` otherwise.
 
         .. versionadded:: 1.8.0
 
@@ -184,7 +182,6 @@ def dstn(x, type=..., s=..., axes=..., norm=..., overwrite_x=..., workers=..., o
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.fft import dstn, idstn
     >>> rng = np.random.default_rng()
     >>> y = rng.standard_normal((16, 16))
@@ -227,7 +224,7 @@ def idstn(x, type=..., s=..., axes=..., norm=..., overwrite_x=..., workers=..., 
         See :func:`~scipy.fft.fft` for more details.
     orthogonalize : bool, optional
         Whether to use the orthogonalized IDST variant (see Notes).
-        Defaults to ``True`` when ``norm="ortho"`` and ``False`` otherwise.
+        Defaults to ``True`` when ``norm=="ortho"`` and ``False`` otherwise.
 
         .. versionadded:: 1.8.0
 
@@ -247,7 +244,6 @@ def idstn(x, type=..., s=..., axes=..., norm=..., overwrite_x=..., workers=..., 
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.fft import dstn, idstn
     >>> rng = np.random.default_rng()
     >>> y = rng.standard_normal((16, 16))
@@ -284,7 +280,7 @@ def dct(x, type=..., n=..., axis=..., norm=..., overwrite_x=..., workers=..., or
         See :func:`~scipy.fft.fft` for more details.
     orthogonalize : bool, optional
         Whether to use the orthogonalized DCT variant (see Notes).
-        Defaults to ``True`` when ``norm="ortho"`` and ``False`` otherwise.
+        Defaults to ``True`` when ``norm=="ortho"`` and ``False`` otherwise.
 
         .. versionadded:: 1.8.0
 
@@ -396,7 +392,6 @@ def dct(x, type=..., n=..., axis=..., norm=..., overwrite_x=..., workers=..., or
     Half of the FFT input is used to generate half of the FFT output:
 
     >>> from scipy.fft import fft, dct
-    >>> import numpy as np
     >>> fft(np.array([4., 3., 5., 10., 5., 3.])).real
     array([ 30.,  -8.,   6.,  -2.,   6.,  -8.])
     >>> dct(np.array([4., 3., 5., 10.]), 1)
@@ -433,7 +428,7 @@ def idct(x, type=..., n=..., axis=..., norm=..., overwrite_x=..., workers=..., o
         See :func:`~scipy.fft.fft` for more details.
     orthogonalize : bool, optional
         Whether to use the orthogonalized IDCT variant (see Notes).
-        Defaults to ``True`` when ``norm="ortho"`` and ``False`` otherwise.
+        Defaults to ``True`` when ``norm=="ortho"`` and ``False`` otherwise.
 
         .. versionadded:: 1.8.0
 
@@ -474,7 +469,6 @@ def idct(x, type=..., n=..., axis=..., norm=..., overwrite_x=..., workers=..., o
     input is used to generate half of the IFFT output:
 
     >>> from scipy.fft import ifft, idct
-    >>> import numpy as np
     >>> ifft(np.array([ 30.,  -8.,   6.,  -2.,   6.,  -8.])).real
     array([  4.,   3.,   5.,  10.,   5.,   3.])
     >>> idct(np.array([ 30.,  -8.,   6.,  -2.]), 1)
@@ -511,7 +505,7 @@ def dst(x, type=..., n=..., axis=..., norm=..., overwrite_x=..., workers=..., or
         See :func:`~scipy.fft.fft` for more details.
     orthogonalize : bool, optional
         Whether to use the orthogonalized DST variant (see Notes).
-        Defaults to ``True`` when ``norm="ortho"`` and ``False`` otherwise.
+        Defaults to ``True`` when ``norm=="ortho"`` and ``False`` otherwise.
 
         .. versionadded:: 1.8.0
 
@@ -644,7 +638,7 @@ def idst(x, type=..., n=..., axis=..., norm=..., overwrite_x=..., workers=..., o
         See :func:`~scipy.fft.fft` for more details.
     orthogonalize : bool, optional
         Whether to use the orthogonalized IDST variant (see Notes).
-        Defaults to ``True`` when ``norm="ortho"`` and ``False`` otherwise.
+        Defaults to ``True`` when ``norm=="ortho"`` and ``False`` otherwise.
 
         .. versionadded:: 1.8.0
 

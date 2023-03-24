@@ -118,27 +118,6 @@ def root_scalar(f, args=..., method=..., bracket=..., fprime=..., fprime2=..., x
     select one of the derivative-based methods.
     If no method is judged applicable, it will raise an Exception.
 
-    Arguments for each method are as follows (x=required, o=optional).
-
-    +-----------------------------------------------+---+------+---------+----+----+--------+---------+------+------+---------+---------+
-    |                    method                     | f | args | bracket | x0 | x1 | fprime | fprime2 | xtol | rtol | maxiter | options |
-    +===============================================+===+======+=========+====+====+========+=========+======+======+=========+=========+
-    | :ref:`bisect <optimize.root_scalar-bisect>`   | x |  o   |    x    |    |    |        |         |  o   |  o   |    o    |   o     |
-    +-----------------------------------------------+---+------+---------+----+----+--------+---------+------+------+---------+---------+
-    | :ref:`brentq <optimize.root_scalar-brentq>`   | x |  o   |    x    |    |    |        |         |  o   |  o   |    o    |   o     |
-    +-----------------------------------------------+---+------+---------+----+----+--------+---------+------+------+---------+---------+
-    | :ref:`brenth <optimize.root_scalar-brenth>`   | x |  o   |    x    |    |    |        |         |  o   |  o   |    o    |   o     |
-    +-----------------------------------------------+---+------+---------+----+----+--------+---------+------+------+---------+---------+
-    | :ref:`ridder <optimize.root_scalar-ridder>`   | x |  o   |    x    |    |    |        |         |  o   |  o   |    o    |   o     |
-    +-----------------------------------------------+---+------+---------+----+----+--------+---------+------+------+---------+---------+
-    | :ref:`toms748 <optimize.root_scalar-toms748>` | x |  o   |    x    |    |    |        |         |  o   |  o   |    o    |   o     |
-    +-----------------------------------------------+---+------+---------+----+----+--------+---------+------+------+---------+---------+
-    | :ref:`newton <optimize.root_scalar-newton>`   | x |  o   |         | x  |    |   x    |         |  o   |  o   |    o    |   o     |
-    +-----------------------------------------------+---+------+---------+----+----+--------+---------+------+------+---------+---------+
-    | :ref:`secant <optimize.root_scalar-secant>`   | x |  o   |         | x  | x  |        |         |  o   |  o   |    o    |   o     |
-    +-----------------------------------------------+---+------+---------+----+----+--------+---------+------+------+---------+---------+
-    | :ref:`halley <optimize.root_scalar-halley>`   | x |  o   |         | x  |    |   x    |    x    |  o   |  o   |    o    |   o     |
-    +-----------------------------------------------+---+------+---------+----+----+--------+---------+------+------+---------+---------+
 
     Examples
     --------
@@ -158,8 +137,7 @@ def root_scalar(f, args=..., method=..., bracket=..., fprime=..., fprime2=..., x
     >>> sol.root, sol.iterations, sol.function_calls
     (1.0, 10, 11)
 
-    The `newton` method takes as input a single point and uses the
-    derivative(s).
+    The `newton` method takes as input a single point and uses the derivative(s)
 
     >>> sol = optimize.root_scalar(f, x0=0.2, fprime=fprime, method='newton')
     >>> sol.root, sol.iterations, sol.function_calls
@@ -170,15 +148,11 @@ def root_scalar(f, args=..., method=..., bracket=..., fprime=..., fprime2=..., x
     >>> def f_p_pp(x):
     ...     return (x**3 - 1), 3*x**2, 6*x
 
-    >>> sol = optimize.root_scalar(
-    ...     f_p_pp, x0=0.2, fprime=True, method='newton'
-    ... )
+    >>> sol = optimize.root_scalar(f_p_pp, x0=0.2, fprime=True, method='newton')
     >>> sol.root, sol.iterations, sol.function_calls
     (1.0, 11, 11)
 
-    >>> sol = optimize.root_scalar(
-    ...     f_p_pp, x0=0.2, fprime=True, fprime2=True, method='halley'
-    ... )
+    >>> sol = optimize.root_scalar(f_p_pp, x0=0.2, fprime=True, fprime2=True, method='halley')
     >>> sol.root, sol.iterations, sol.function_calls
     (1.0, 7, 8)
 

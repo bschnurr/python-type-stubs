@@ -18,7 +18,6 @@ def set_workers(workers): # -> Generator[None, None, None]:
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy import fft, signal
     >>> rng = np.random.default_rng()
     >>> x = rng.standard_normal((128, 64))

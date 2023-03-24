@@ -86,7 +86,7 @@ def fsolve(func, x0, args=..., fprime=..., full_output=..., col_deriv=..., xtol=
     See Also
     --------
     root : Interface to root finding algorithms for multivariate
-           functions. See the ``method='hybr'`` in particular.
+           functions. See the ``method=='hybr'`` in particular.
 
     Notes
     -----
@@ -97,7 +97,6 @@ def fsolve(func, x0, args=..., fprime=..., full_output=..., col_deriv=..., xtol=
     Find a solution to the system of equations:
     ``x0*cos(x1) = 4,  x1*x0 - x1 = 5``.
 
-    >>> import numpy as np
     >>> from scipy.optimize import fsolve
     >>> def func(x):
     ...     return [x[0] * np.cos(x[1]) - 4,
@@ -113,7 +112,7 @@ def fsolve(func, x0, args=..., fprime=..., full_output=..., col_deriv=..., xtol=
 
 LEASTSQ_SUCCESS = ...
 LEASTSQ_FAILURE = ...
-def leastsq(func, x0, args=..., Dfun=..., full_output=..., col_deriv=..., ftol=..., xtol=..., gtol=..., maxfev=..., epsfcn=..., factor=..., diag=...): # -> Any | tuple[Any, Any]:
+def leastsq(func, x0, args=..., Dfun=..., full_output=..., col_deriv=..., ftol=..., xtol=..., gtol=..., maxfev=..., epsfcn=..., factor=..., diag=...): # -> tuple[Unknown, Unknown]:
     """
     Minimize the sum of squares of a set of equations.
 
@@ -207,7 +206,7 @@ def leastsq(func, x0, args=..., Dfun=..., full_output=..., col_deriv=..., ftol=.
     See Also
     --------
     least_squares : Newer interface to solve nonlinear least-squares problems
-        with bounds on the variables. See ``method='lm'`` in particular.
+        with bounds on the variables. See ``method=='lm'`` in particular.
 
     Notes
     -----
@@ -252,11 +251,10 @@ def curve_fit(f, xdata, ydata, p0=..., sigma=..., absolute_sigma=..., check_fini
         The model function, f(x, ...). It must take the independent
         variable as the first argument and the parameters to fit as
         separate remaining arguments.
-    xdata : array_like
+    xdata : array_like or object
         The independent variable where the data is measured.
         Should usually be an M-length sequence or an (k,M)-shaped array for
-        functions with k predictors, and each element should be float
-        convertible if it is an array like object.
+        functions with k predictors, but can actually be any object.
     ydata : array_like
         The dependent data, a length M array - nominally ``f(xdata, ...)``.
     p0 : array_like, optional
@@ -297,18 +295,14 @@ def curve_fit(f, xdata, ydata, p0=..., sigma=..., absolute_sigma=..., check_fini
         and raise a ValueError if they do. Setting this parameter to
         False may silently produce nonsensical results if the input arrays
         do contain nans. Default is True.
-    bounds : 2-tuple of array_like or `Bounds`, optional
+    bounds : 2-tuple of array_like, optional
         Lower and upper bounds on parameters. Defaults to no bounds.
-        There are two ways to specify the bounds:
+        Each element of the tuple must be either an array with the length equal
+        to the number of parameters, or a scalar (in which case the bound is
+        taken to be the same for all parameters). Use ``np.inf`` with an
+        appropriate sign to disable bounds on all or some parameters.
 
-            - Instance of `Bounds` class.
-
-            - 2-tuple of array_like: Each element of the tuple must be either
-              an array with the length equal to the number of parameters, or a
-              scalar (in which case the bound is taken to be the same for all
-              parameters). Use ``np.inf`` with an appropriate sign to disable
-              bounds on all or some parameters.
-
+        .. versionadded:: 0.17
     method : {'lm', 'trf', 'dogbox'}, optional
         Method to use for optimization. See `least_squares` for more details.
         Default is 'lm' for unconstrained problems and 'trf' if `bounds` are
@@ -414,7 +408,7 @@ def curve_fit(f, xdata, ydata, p0=..., sigma=..., absolute_sigma=..., check_fini
     -----
     Users should ensure that inputs `xdata`, `ydata`, and the output of `f`
     are ``float64``, or else the optimization may return incorrect results.
-
+    
     With ``method='lm'``, the algorithm uses the Levenberg-Marquardt algorithm
     through `leastsq`. Note that this algorithm can only deal with
     unconstrained problems.
@@ -424,7 +418,6 @@ def curve_fit(f, xdata, ydata, p0=..., sigma=..., absolute_sigma=..., check_fini
 
     Examples
     --------
-    >>> import numpy as np
     >>> import matplotlib.pyplot as plt
     >>> from scipy.optimize import curve_fit
 
@@ -503,7 +496,6 @@ def fixed_point(func, x0, args=..., xtol=..., maxiter=..., method=...): # -> NDA
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy import optimize
     >>> def func(x, c1, c2):
     ...    return np.sqrt(c1/(x+c2))

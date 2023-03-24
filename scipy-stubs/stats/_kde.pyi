@@ -101,11 +101,6 @@ class gaussian_kde:
 
     as detailed in [5]_.
 
-    `gaussian_kde` does not currently support data that lies in a
-    lower-dimensional subspace of the space in which it is expressed. For such
-    data, consider performing principle component analysis / dimensionality
-    reduction and using `gaussian_kde` with the transformed data.
-
     References
     ----------
     .. [1] D.W. Scott, "Multivariate Density Estimation: Theory, Practice, and
@@ -125,7 +120,6 @@ class gaussian_kde:
     --------
     Generate some random two-dimensional data:
 
-    >>> import numpy as np
     >>> from scipy import stats
     >>> def measure(n):
     ...     "Measurement model, return two coupled measurements."
@@ -287,7 +281,9 @@ class gaussian_kde:
             The number of samples to draw.  If not provided, then the size is
             the same as the effective number of samples in the underlying
             dataset.
-        seed : {None, int, `numpy.random.Generator`, `numpy.random.RandomState`}, optional
+        seed : {None, int, `numpy.random.Generator`,
+                `numpy.random.RandomState`}, optional
+
             If `seed` is None (or `np.random`), the `numpy.random.RandomState`
             singleton is used.
             If `seed` is an int, a new ``RandomState`` instance is used,
@@ -346,7 +342,6 @@ class gaussian_kde:
 
         Examples
         --------
-        >>> import numpy as np
         >>> import scipy.stats as stats
         >>> x1 = np.array([-7, -5, 1, 4, 5.])
         >>> kde = stats.gaussian_kde(x1)
@@ -370,10 +365,6 @@ class gaussian_kde:
         """
         ...
     
-    @property
-    def inv_cov(self):
-        ...
-    
     def pdf(self, x):
         """
         Evaluate the estimated pdf on a provided set of points.
@@ -386,31 +377,9 @@ class gaussian_kde:
         """
         ...
     
-    def logpdf(self, x):
+    def logpdf(self, x): # -> tuple[Any, Any | Unbound] | Any | NDArray[Any]:
         """
         Evaluate the log of the estimated pdf on a provided set of points.
-        """
-        ...
-    
-    def marginal(self, dimensions): # -> gaussian_kde:
-        """Return a marginal KDE distribution
-
-        Parameters
-        ----------
-        dimensions : int or 1-d array_like
-            The dimensions of the multivariate distribution corresponding
-            with the marginal variables, that is, the indices of the dimensions
-            that are being retained. The other dimensions are marginalized out.
-
-        Returns
-        -------
-        marginal_kde : gaussian_kde
-            An object representing the marginal distribution.
-
-        Notes
-        -----
-        .. versionadded:: 1.10.0
-
         """
         ...
     

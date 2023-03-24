@@ -12,7 +12,7 @@ class MemoizeJac:
         ...
     
     def __call__(self, x, *args): # -> None:
-        """ returns the function value """
+        """ returns the the function value """
         ...
     
     def derivative(self, x, *args): # -> None:
@@ -74,8 +74,8 @@ class OptimizeWarning(UserWarning):
     ...
 
 
-def is_finite_scalar(x): # -> Any | Literal[False]:
-    """Test whether `x` is either a finite scalar or a finite array scalar.
+def is_array_scalar(x): # -> bool:
+    """Test whether `x` is either a scalar or an array scalar.
 
     """
     ...
@@ -108,7 +108,6 @@ def rosen(x): # -> Any:
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.optimize import rosen
     >>> X = 0.1 * np.arange(10)
     >>> rosen(X)
@@ -148,7 +147,6 @@ def rosen_der(x): # -> NDArray[Unknown]:
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.optimize import rosen_der
     >>> X = 0.1 * np.arange(9)
     >>> rosen_der(X)
@@ -177,7 +175,6 @@ def rosen_hess(x): # -> NDArray[floating[Any]]:
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.optimize import rosen_hess
     >>> X = 0.1 * np.arange(4)
     >>> rosen_hess(X)
@@ -212,7 +209,6 @@ def rosen_hess_prod(x, p): # -> NDArray[float64]:
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.optimize import rosen_hess_prod
     >>> X = 0.1 * np.arange(9)
     >>> p = 0.5 * np.arange(9)
@@ -384,7 +380,6 @@ def approx_fprime(xk, f, epsilon=..., *args): # -> LinearOperator | NDArray[floa
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy import optimize
     >>> def func(x, c0, c1):
     ...     "Coordinate vector `x` should be an array of size two."
@@ -423,7 +418,9 @@ def check_grad(func, grad, x0, *args, epsilon=..., direction=..., seed=...): # -
         using `func`. By default it is ``'all'``, in which case, all
         the one hot direction vectors are considered to check `grad`.
         If `func` is a vector valued function then only ``'all'`` can be used.
-    seed : {None, int, `numpy.random.Generator`, `numpy.random.RandomState`}, optional
+    seed : {None, int, `numpy.random.Generator`,
+            `numpy.random.RandomState`}, optional
+
         If `seed` is None (or `np.random`), the `numpy.random.RandomState`
         singleton is used.
         If `seed` is an int, a new ``RandomState`` instance is used,
@@ -448,7 +445,6 @@ def check_grad(func, grad, x0, *args, epsilon=..., direction=..., seed=...): # -
 
     Examples
     --------
-    >>> import numpy as np
     >>> def func(x):
     ...     return x[0]**2 - 0.5 * x[1]**3
     >>> def grad(x):
@@ -471,7 +467,7 @@ class _LineSearchError(RuntimeError):
     ...
 
 
-def fmin_bfgs(f, x0, fprime=..., args=..., gtol=..., norm=..., epsilon=..., maxiter=..., full_output=..., disp=..., retall=..., callback=..., xrtol=...): # -> tuple[Unknown, Unknown, Unknown, Unknown, Unknown, Unknown, Unknown, Unknown] | tuple[Unknown, Unknown, Unknown, Unknown, Unknown, Unknown, Unknown] | tuple[Unknown, Unknown]:
+def fmin_bfgs(f, x0, fprime=..., args=..., gtol=..., norm=..., epsilon=..., maxiter=..., full_output=..., disp=..., retall=..., callback=...): # -> tuple[Unknown, Unknown, Unknown, Unknown, Unknown, Unknown, Unknown, Unknown] | tuple[Unknown, Unknown, Unknown, Unknown, Unknown, Unknown, Unknown] | tuple[Unknown, Unknown]:
     """
     Minimize a function using the BFGS algorithm.
 
@@ -486,7 +482,7 @@ def fmin_bfgs(f, x0, fprime=..., args=..., gtol=..., norm=..., epsilon=..., maxi
     args : tuple, optional
         Extra arguments passed to f and fprime.
     gtol : float, optional
-        Terminate successfully if gradient norm is less than `gtol`
+        Gradient norm must be less than `gtol` before successful termination.
     norm : float, optional
         Order of norm (Inf is max, -Inf is min)
     epsilon : int or ndarray, optional
@@ -504,10 +500,6 @@ def fmin_bfgs(f, x0, fprime=..., args=..., gtol=..., norm=..., epsilon=..., maxi
         Print convergence message if True.
     retall : bool, optional
         Return a list of results at each iteration if True.
-    xrtol : float, default: 0
-        Relative tolerance for `x`. Terminate successfully if step
-        size is less than ``xk * xrtol`` where ``xk`` is the current
-        parameter vector.
 
     Returns
     -------
@@ -548,7 +540,6 @@ def fmin_bfgs(f, x0, fprime=..., args=..., gtol=..., norm=..., epsilon=..., maxi
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.optimize import fmin_bfgs
     >>> def quadratic_cost(x, Q):
     ...     return x @ Q @ x
@@ -686,7 +677,6 @@ def fmin_cg(f, x0, fprime=..., args=..., gtol=..., norm=..., epsilon=..., maxite
     ``a*u**2 + b*u*v + c*v**2 + d*u + e*v + f`` for given values
     of the parameters and an initial guess ``(u, v) = (0, 0)``.
 
-    >>> import numpy as np
     >>> args = (2, 3, 7, 8, 9, 10)  # parameter values
     >>> def f(x, *args):
     ...     u, v = x
@@ -831,7 +821,7 @@ def fminbound(func, x1, x2, args=..., xtol=..., maxfun=..., full_output=..., dis
     func : callable f(x,*args)
         Objective function to be minimized (must accept and return scalars).
     x1, x2 : float or array scalar
-        Finite optimization bounds.
+        The optimization bounds.
     args : tuple, optional
         Extra arguments passed to function.
     xtol : float, optional
@@ -854,7 +844,7 @@ def fminbound(func, x1, x2, args=..., xtol=..., maxfun=..., full_output=..., dis
         Parameters (over given interval) which minimize the
         objective function.
     fval : number
-        The function value evaluated at the minimizer.
+        The function value at the minimum point.
     ierr : int
         An error flag (0 if converged, 1 if maximum number of
         function calls reached).
@@ -872,34 +862,22 @@ def fminbound(func, x1, x2, args=..., xtol=..., maxfun=..., full_output=..., dis
     interval x1 < xopt < x2 using Brent's method. (See `brent`
     for auto-bracketing.)
 
-    References
-    ----------
-    .. [1] Forsythe, G.E., M. A. Malcolm, and C. B. Moler. "Computer Methods
-           for Mathematical Computations." Prentice-Hall Series in Automatic
-           Computation 259 (1977).
-    .. [2] Brent, Richard P. Algorithms for Minimization Without Derivatives.
-           Courier Corporation, 2013.
-
     Examples
     --------
-    `fminbound` finds the minimizer of the function in the given range.
-    The following examples illustrate this.
+    `fminbound` finds the minimum of the function in the given range.
+    The following examples illustrate the same
+
+    >>> def f(x):
+    ...     return x**2
 
     >>> from scipy import optimize
-    >>> def f(x):
-    ...     return (x-1)**2
-    >>> minimizer = optimize.fminbound(f, -4, 4)
-    >>> minimizer
-    1.0
-    >>> minimum = f(minimizer)
+
+    >>> minimum = optimize.fminbound(f, -1, 2)
     >>> minimum
     0.0
-    >>> minimizer = optimize.fminbound(f, 3, 4)
-    >>> minimizer
-    3.000005960860986
-    >>> minimum = f(minimizer)
+    >>> minimum = optimize.fminbound(f, 1, 2)
     >>> minimum
-    4.000023843479476
+    1.0000059608609866
     """
     ...
 
@@ -1089,7 +1067,6 @@ def bracket(func, xa=..., xb=..., args=..., grow_limit=..., maxiter=...): # -> t
     --------
     This function can find a downward convex region of a function:
 
-    >>> import numpy as np
     >>> import matplotlib.pyplot as plt
     >>> from scipy.optimize import bracket
     >>> def f(x):
@@ -1220,7 +1197,7 @@ def fmin_powell(func, x0, args=..., xtol=..., ftol=..., maxiter=..., maxfun=...,
     Optimization terminated successfully.
              Current function value: 0.000000
              Iterations: 2
-             Function evaluations: 16
+             Function evaluations: 18
     >>> minimum
     array(0.0)
 
@@ -1361,7 +1338,6 @@ def brute(func, ranges, args=..., Ns=..., full_output=..., finish=..., disp=...,
     ``(z, *params)``, where ``z = (x, y)``,  and ``params`` and the functions
     are as defined below.
 
-    >>> import numpy as np
     >>> params = (2, 3, 7, 8, 9, 10, 44, -1, 2, 26, 1, -2, 0.5)
     >>> def f1(z, *params):
     ...     x, y = z
@@ -1521,3 +1497,8 @@ def show_options(solver=..., method=..., disp=...): # -> str | LiteralString | N
     """
     ...
 
+def main(): # -> None:
+    ...
+
+if __name__ == "__main__":
+    ...

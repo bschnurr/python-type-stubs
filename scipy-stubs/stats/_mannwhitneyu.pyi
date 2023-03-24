@@ -110,7 +110,7 @@ def mannwhitneyu(x, y, use_continuity=..., alternative=..., axis=..., method=...
     data.
 
     The Mann-Whitney U test is a non-parametric version of the t-test for
-    independent samples. When the means of samples from the populations
+    independent samples. When the the means of samples from the populations
     are normally distributed, consider `scipy.stats.ttest_ind`.
 
     See Also

@@ -386,7 +386,7 @@ def seed(seed=...): # -> None:
     """
     ...
 
-def rand(*shape): # -> Any:
+def rand(*shape):
     """
     Generate standard uniform pseudorandom numbers via a very efficient lagged
     Fibonacci method.
@@ -402,7 +402,7 @@ def rand(*shape): # -> Any:
     """
     ...
 
-def interp_decomp(A, eps_or_k, rand=...): # -> tuple[Any, Any, Any | ndarray[Any, dtype[Unknown]]] | tuple[Any, NDArray[Any] | Any | ndarray[Any, dtype[Unknown]]] | tuple[Any, Any, Any] | tuple[Any, Any]:
+def interp_decomp(A, eps_or_k, rand=...): # -> tuple[Unknown, Unknown, Unknown | ndarray[Any, dtype[Unknown]]] | tuple[Unknown, NDArray[Any] | Unknown | ndarray[Any, dtype[Unknown]]] | tuple[Unknown, Unknown, Unknown] | tuple[Unknown, Unknown]:
     """
     Compute ID of a matrix.
 
@@ -479,7 +479,7 @@ def interp_decomp(A, eps_or_k, rand=...): # -> tuple[Any, Any, Any | ndarray[Any
     """
     ...
 
-def reconstruct_matrix_from_id(B, idx, proj): # -> Any | ndarray[Any, dtype[Unknown]]:
+def reconstruct_matrix_from_id(B, idx, proj): # -> ndarray[Any, dtype[Unknown]]:
     """
     Reconstruct matrix from its ID.
 
@@ -511,7 +511,7 @@ def reconstruct_matrix_from_id(B, idx, proj): # -> Any | ndarray[Any, dtype[Unkn
     """
     ...
 
-def reconstruct_interp_matrix(idx, proj): # -> Any:
+def reconstruct_interp_matrix(idx, proj):
     """
     Reconstruct interpolation matrix from ID.
 
@@ -546,7 +546,7 @@ def reconstruct_interp_matrix(idx, proj): # -> Any:
     """
     ...
 
-def reconstruct_skel_matrix(A, k, idx): # -> Any:
+def reconstruct_skel_matrix(A, k, idx):
     """
     Reconstruct skeleton matrix from ID.
 
@@ -582,7 +582,7 @@ def reconstruct_skel_matrix(A, k, idx): # -> Any:
     """
     ...
 
-def id_to_svd(B, idx, proj): # -> tuple[Any, Any, Any]:
+def id_to_svd(B, idx, proj): # -> tuple[Unknown, Unknown, Unknown]:
     """
     Convert ID to SVD.
 
@@ -618,7 +618,7 @@ def id_to_svd(B, idx, proj): # -> tuple[Any, Any, Any]:
     """
     ...
 
-def estimate_spectral_norm(A, its=...): # -> Any:
+def estimate_spectral_norm(A, its=...):
     """
     Estimate spectral norm of a matrix by the randomized power method.
 
@@ -641,7 +641,7 @@ def estimate_spectral_norm(A, its=...): # -> Any:
     """
     ...
 
-def estimate_spectral_norm_diff(A, B, its=...): # -> Any:
+def estimate_spectral_norm_diff(A, B, its=...):
     """
     Estimate spectral norm of the difference of two matrices by the randomized
     power method.
@@ -668,7 +668,7 @@ def estimate_spectral_norm_diff(A, B, its=...): # -> Any:
     """
     ...
 
-def svd(A, eps_or_k, rand=...): # -> tuple[Any, Any, Any]:
+def svd(A, eps_or_k, rand=...): # -> tuple[Unknown, Unknown, Unknown]:
     """
     Compute SVD of a matrix via an ID.
 
@@ -717,7 +717,7 @@ def svd(A, eps_or_k, rand=...): # -> tuple[Any, Any, Any]:
     """
     ...
 
-def estimate_rank(A, eps): # -> int | Any:
+def estimate_rank(A, eps): # -> int:
     """
     Estimate matrix rank to a specified relative precision using randomized
     methods.

@@ -110,7 +110,6 @@ def whiten(obs, check_finite=...): # -> Any:
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.cluster.vq import whiten
     >>> features  = np.array([[1.9, 2.3, 1.7],
     ...                       [1.5, 2.5, 2.2],
@@ -170,13 +169,13 @@ def vq(obs, code_book, check_finite=...): # -> tuple[Any, ndarray[Any, dtype[flo
 
     Examples
     --------
-    >>> import numpy as np
+    >>> from numpy import array
     >>> from scipy.cluster.vq import vq
-    >>> code_book = np.array([[1.,1.,1.],
-    ...                       [2.,2.,2.]])
-    >>> features  = np.array([[  1.9,2.3,1.7],
-    ...                       [  1.5,2.5,2.2],
-    ...                       [  0.8,0.6,1.7]])
+    >>> code_book = array([[1.,1.,1.],
+    ...                    [2.,2.,2.]])
+    >>> features  = array([[  1.9,2.3,1.7],
+    ...                    [  1.5,2.5,2.2],
+    ...                    [  0.8,0.6,1.7]])
     >>> vq(features,code_book)
     (array([1, 1, 0],'i'), array([ 0.43588989,  0.73484692,  0.83066239]))
 
@@ -269,7 +268,9 @@ def kmeans(obs, k_or_guess, iter=..., thresh=..., check_finite=..., *, seed=...)
         (crashes, non-termination) if the inputs do contain infinities or NaNs.
         Default: True
 
-    seed : {None, int, `numpy.random.Generator`, `numpy.random.RandomState`}, optional
+    seed : {None, int, `numpy.random.Generator`,
+            `numpy.random.RandomState`}, optional
+
         Seed for initializing the pseudo-random number generator.
         If `seed` is None (or `numpy.random`), the `numpy.random.RandomState`
         singleton is used.
@@ -314,18 +315,18 @@ def kmeans(obs, k_or_guess, iter=..., thresh=..., check_finite=..., *, seed=...)
 
     Examples
     --------
-    >>> import numpy as np
+    >>> from numpy import array
     >>> from scipy.cluster.vq import vq, kmeans, whiten
     >>> import matplotlib.pyplot as plt
-    >>> features  = np.array([[ 1.9,2.3],
-    ...                       [ 1.5,2.5],
-    ...                       [ 0.8,0.6],
-    ...                       [ 0.4,1.8],
-    ...                       [ 0.1,0.1],
-    ...                       [ 0.2,1.8],
-    ...                       [ 2.0,0.5],
-    ...                       [ 0.3,1.5],
-    ...                       [ 1.0,1.0]])
+    >>> features  = array([[ 1.9,2.3],
+    ...                    [ 1.5,2.5],
+    ...                    [ 0.8,0.6],
+    ...                    [ 0.4,1.8],
+    ...                    [ 0.1,0.1],
+    ...                    [ 0.2,1.8],
+    ...                    [ 2.0,0.5],
+    ...                    [ 0.3,1.5],
+    ...                    [ 1.0,1.0]])
     >>> whitened = whiten(features)
     >>> book = np.array((whitened[0],whitened[2]))
     >>> kmeans(whitened,book)
@@ -411,7 +412,9 @@ def kmeans2(data, k, iter=..., thresh=..., minit=..., missing=..., check_finite=
         Disabling may give a performance gain, but may result in problems
         (crashes, non-termination) if the inputs do contain infinities or NaNs.
         Default: True
-    seed : {None, int, `numpy.random.Generator`, `numpy.random.RandomState`}, optional
+    seed : {None, int, `numpy.random.Generator`,
+            `numpy.random.RandomState`}, optional
+
         Seed for initializing the pseudo-random number generator.
         If `seed` is None (or `numpy.random`), the `numpy.random.RandomState`
         singleton is used.
@@ -444,7 +447,6 @@ def kmeans2(data, k, iter=..., thresh=..., minit=..., missing=..., check_finite=
     --------
     >>> from scipy.cluster.vq import kmeans2
     >>> import matplotlib.pyplot as plt
-    >>> import numpy as np
 
     Create z, an array with shape (100, 2) containing a mixture of samples
     from three multivariate normal distributions.

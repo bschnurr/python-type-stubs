@@ -114,8 +114,8 @@ def update_tr_radius(Delta, actual_reduction, predicted_reduction, step_norm, bo
 def build_quadratic_1d(J, g, s, diag=..., s0=...): # -> tuple[Any, Any, Any] | tuple[Any, Any]:
     """Parameterize a multivariate quadratic function along a line.
 
-    The resulting univariate quadratic function is given as follows::
-
+    The resulting univariate quadratic function is given as follows:
+    ::
         f(t) = 0.5 * (s0 + s*t).T * (J.T*J + diag) * (s0 + s*t) +
                g.T * (s0 + s*t)
 
@@ -235,8 +235,8 @@ def make_strictly_feasible(x, lb, ub, rstep=...):
 def CL_scaling_vector(x, g, lb, ub): # -> tuple[Unknown, Unknown]:
     """Compute Coleman-Li scaling vector and its derivatives.
 
-    Components of a vector v are defined as follows::
-
+    Components of a vector v are defined as follows:
+    ::
                | ub[i] - x[i], if g[i] < 0 and ub[i] < np.inf
         v[i] = | x[i] - lb[i], if g[i] > 0 and lb[i] > -np.inf
                | 1,           otherwise

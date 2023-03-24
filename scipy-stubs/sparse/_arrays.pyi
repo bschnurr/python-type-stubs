@@ -22,9 +22,6 @@ class _sparray:
     def __rmul__(self, *args, **kwargs):
         ...
     
-    def __pow__(self, *args, **kwargs):
-        ...
-    
 
 
 class bsr_array(_sparray, bsr_matrix):

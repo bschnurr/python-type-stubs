@@ -32,7 +32,6 @@ def delaunay_plot_2d(tri, ax=...):
     Examples
     --------
 
-    >>> import numpy as np
     >>> import matplotlib.pyplot as plt
     >>> from scipy.spatial import Delaunay, delaunay_plot_2d
 
@@ -79,7 +78,6 @@ def convex_hull_plot_2d(hull, ax=...):
     Examples
     --------
 
-    >>> import numpy as np
     >>> import matplotlib.pyplot as plt
     >>> from scipy.spatial import ConvexHull, convex_hull_plot_2d
 
@@ -136,28 +134,25 @@ def voronoi_plot_2d(vor, ax=..., **kw):
 
     Examples
     --------
-    >>> import numpy as np
+    Set of point:
+
     >>> import matplotlib.pyplot as plt
-    >>> from scipy.spatial import Voronoi, voronoi_plot_2d
-
-    Create a set of points for the example:
-
     >>> rng = np.random.default_rng()
     >>> points = rng.random((10,2))
 
-    Generate the Voronoi diagram for the points:
+    Voronoi diagram of the points:
 
+    >>> from scipy.spatial import Voronoi, voronoi_plot_2d
     >>> vor = Voronoi(points)
 
-    Use `voronoi_plot_2d` to plot the diagram:
+    using `voronoi_plot_2d` for visualisation:
 
     >>> fig = voronoi_plot_2d(vor)
 
-    Use `voronoi_plot_2d` to plot the diagram again, with some settings
-    customized:
+    using `voronoi_plot_2d` for visualisation with enhancements:
 
     >>> fig = voronoi_plot_2d(vor, show_vertices=False, line_colors='orange',
-    ...                       line_width=2, line_alpha=0.6, point_size=2)
+    ...                 line_width=2, line_alpha=0.6, point_size=2)
     >>> plt.show()
 
     """

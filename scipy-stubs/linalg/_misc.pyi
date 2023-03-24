@@ -89,7 +89,6 @@ def norm(a, ord=..., axis=..., keepdims=..., check_finite=...): # -> floating[An
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.linalg import norm
     >>> a = np.arange(9) - 4.0
     >>> a

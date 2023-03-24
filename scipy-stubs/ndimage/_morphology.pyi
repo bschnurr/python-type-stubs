@@ -93,7 +93,6 @@ def generate_binary_structure(rank, connectivity): # -> NDArray[Any] | Any:
     Examples
     --------
     >>> from scipy import ndimage
-    >>> import numpy as np
     >>> struct = ndimage.generate_binary_structure(2, 1)
     >>> struct
     array([[False,  True, False],
@@ -203,7 +202,6 @@ def binary_erosion(input, structure=..., iterations=..., mask=..., output=..., b
     Examples
     --------
     >>> from scipy import ndimage
-    >>> import numpy as np
     >>> a = np.zeros((7,7), dtype=int)
     >>> a[1:6, 2:5] = 1
     >>> a
@@ -296,7 +294,6 @@ def binary_dilation(input, structure=..., iterations=..., mask=..., output=..., 
     Examples
     --------
     >>> from scipy import ndimage
-    >>> import numpy as np
     >>> a = np.zeros((5, 5))
     >>> a[2, 2] = 1
     >>> a
@@ -426,7 +423,6 @@ def binary_opening(input, structure=..., iterations=..., output=..., origin=...,
     Examples
     --------
     >>> from scipy import ndimage
-    >>> import numpy as np
     >>> a = np.zeros((5,5), dtype=int)
     >>> a[1:4, 1:4] = 1; a[4, 4] = 1
     >>> a
@@ -540,7 +536,6 @@ def binary_closing(input, structure=..., iterations=..., output=..., origin=...,
     Examples
     --------
     >>> from scipy import ndimage
-    >>> import numpy as np
     >>> a = np.zeros((5,5), dtype=int)
     >>> a[1:-1, 1:-1] = 1; a[2,2] = 0
     >>> a
@@ -650,7 +645,6 @@ def binary_hit_or_miss(input, structure1=..., structure2=..., output=..., origin
     Examples
     --------
     >>> from scipy import ndimage
-    >>> import numpy as np
     >>> a = np.zeros((7,7), dtype=int)
     >>> a[1, 1] = 1; a[2:4, 2:4] = 1; a[4:6, 4:6] = 1
     >>> a
@@ -740,7 +734,6 @@ def binary_propagation(input, structure=..., mask=..., output=..., border_value=
     Examples
     --------
     >>> from scipy import ndimage
-    >>> import numpy as np
     >>> input = np.zeros((8, 8), dtype=int)
     >>> input[2, 2] = 1
     >>> mask = np.zeros((8, 8), dtype=int)
@@ -866,7 +859,6 @@ def binary_fill_holes(input, structure=..., output=..., origin=...): # -> NDArra
     Examples
     --------
     >>> from scipy import ndimage
-    >>> import numpy as np
     >>> a = np.zeros((5, 5), dtype=int)
     >>> a[1:4, 1:4] = 1
     >>> a[2,2] = 0
@@ -960,7 +952,6 @@ def grey_erosion(input, size=..., footprint=..., structure=..., output=..., mode
     Examples
     --------
     >>> from scipy import ndimage
-    >>> import numpy as np
     >>> a = np.zeros((7,7), dtype=int)
     >>> a[1:6, 1:6] = 3
     >>> a[4,4] = 2; a[2,3] = 1
@@ -1065,7 +1056,6 @@ def grey_dilation(input, size=..., footprint=..., structure=..., output=..., mod
     Examples
     --------
     >>> from scipy import ndimage
-    >>> import numpy as np
     >>> a = np.zeros((7,7), dtype=int)
     >>> a[2:5, 2:5] = 1
     >>> a[4,4] = 2; a[2,3] = 3
@@ -1173,7 +1163,6 @@ def grey_opening(input, size=..., footprint=..., structure=..., output=..., mode
     Examples
     --------
     >>> from scipy import ndimage
-    >>> import numpy as np
     >>> a = np.arange(36).reshape((6,6))
     >>> a[3, 3] = 50
     >>> a
@@ -1250,7 +1239,6 @@ def grey_closing(input, size=..., footprint=..., structure=..., output=..., mode
     Examples
     --------
     >>> from scipy import ndimage
-    >>> import numpy as np
     >>> a = np.arange(36).reshape((6,6))
     >>> a[3,3] = 0
     >>> a
@@ -1331,7 +1319,6 @@ def morphological_gradient(input, size=..., footprint=..., structure=..., output
     Examples
     --------
     >>> from scipy import ndimage
-    >>> import numpy as np
     >>> a = np.zeros((7,7), dtype=int)
     >>> a[2:5, 2:5] = 1
     >>> ndimage.morphological_gradient(a, size=(3,3))
@@ -1450,7 +1437,6 @@ def white_tophat(input, size=..., footprint=..., structure=..., output=..., mode
     Subtract gray background from a bright peak.
 
     >>> from scipy.ndimage import generate_binary_structure, white_tophat
-    >>> import numpy as np
     >>> square = generate_binary_structure(rank=2, connectivity=3)
     >>> bright_on_gray = np.array([[2, 3, 3, 3, 2],
     ...                            [3, 4, 5, 4, 3],
@@ -1511,7 +1497,6 @@ def black_tophat(input, size=..., footprint=..., structure=..., output=..., mode
     Change dark peak to bright peak and subtract background.
 
     >>> from scipy.ndimage import generate_binary_structure, black_tophat
-    >>> import numpy as np
     >>> square = generate_binary_structure(rank=2, connectivity=3)
     >>> dark_on_gray = np.array([[7, 6, 6, 6, 7],
     ...                          [6, 5, 4, 5, 6],
@@ -1716,7 +1701,6 @@ def distance_transform_edt(input, sampling=..., return_distances=..., return_ind
     Examples
     --------
     >>> from scipy import ndimage
-    >>> import numpy as np
     >>> a = np.array(([0,1,1,1,1],
     ...               [0,0,1,1,1],
     ...               [0,1,1,1,1],

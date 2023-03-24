@@ -19,7 +19,9 @@ def cwt_matrix(n_rows, n_columns, seed=...): # -> csc_matrix:
         Number of rows of S
     n_columns : int
         Number of columns of S
-    seed : {None, int, `numpy.random.Generator`, `numpy.random.RandomState`}, optional
+    seed : {None, int, `numpy.random.Generator`,
+            `numpy.random.RandomState`}, optional
+
         If `seed` is None (or `np.random`), the `numpy.random.RandomState`
         singleton is used.
         If `seed` is an int, a new ``RandomState`` instance is used,
@@ -58,7 +60,9 @@ def clarkson_woodruff_transform(input_matrix, sketch_size, seed=...): # -> _NotI
         Input matrix, of shape ``(n, d)``.
     sketch_size : int
         Number of rows for the sketch.
-    seed : {None, int, `numpy.random.Generator`, `numpy.random.RandomState`}, optional
+    seed : {None, int, `numpy.random.Generator`,
+            `numpy.random.RandomState`}, optional
+
         If `seed` is None (or `np.random`), the `numpy.random.RandomState`
         singleton is used.
         If `seed` is an int, a new ``RandomState`` instance is used,
@@ -94,7 +98,6 @@ def clarkson_woodruff_transform(input_matrix, sketch_size, seed=...): # -> _NotI
     is in ``scipy.sparse.csc_matrix`` format gives the quickest
     computation time for sparse input.
 
-    >>> import numpy as np
     >>> from scipy import linalg
     >>> from scipy import sparse
     >>> rng = np.random.default_rng()
@@ -111,55 +114,48 @@ def clarkson_woodruff_transform(input_matrix, sketch_size, seed=...): # -> _NotI
     That said, this method does perform well on dense inputs, just slower
     on a relative scale.
 
-    References
-    ----------
-    .. [1] Kenneth L. Clarkson and David P. Woodruff. Low rank approximation
-           and regression in input sparsity time. In STOC, 2013.
-    .. [2] David P. Woodruff. Sketching as a tool for numerical linear algebra.
-           In Foundations and Trends in Theoretical Computer Science, 2014.
-
     Examples
     --------
-    Create a big dense matrix ``A`` for the example:
+    Given a big dense matrix ``A``:
 
-    >>> import numpy as np
     >>> from scipy import linalg
-    >>> n_rows, n_columns  = 15000, 100
+    >>> n_rows, n_columns, sketch_n_rows = 15000, 100, 200
     >>> rng = np.random.default_rng()
     >>> A = rng.standard_normal((n_rows, n_columns))
-
-    Apply the transform to create a new matrix with 200 rows:
-
-    >>> sketch_n_rows = 200
-    >>> sketch = linalg.clarkson_woodruff_transform(A, sketch_n_rows, seed=rng)
+    >>> sketch = linalg.clarkson_woodruff_transform(A, sketch_n_rows)
     >>> sketch.shape
     (200, 100)
+    >>> norm_A = np.linalg.norm(A)
+    >>> norm_sketch = np.linalg.norm(sketch)
 
-    Now with high probability, the true norm is close to the sketched norm
-    in absolute value.
-
-    >>> linalg.norm(A)
-    1224.2812927123198
-    >>> linalg.norm(sketch)
-    1226.518328407333
+    Now with high probability, the true norm ``norm_A`` is close to
+    the sketched norm ``norm_sketch`` in absolute value.
 
     Similarly, applying our sketch preserves the solution to a linear
     regression of :math:`\min \|Ax - b\|`.
 
+    >>> from scipy import linalg
+    >>> n_rows, n_columns, sketch_n_rows = 15000, 100, 200
+    >>> rng = np.random.default_rng()
+    >>> A = rng.standard_normal((n_rows, n_columns))
     >>> b = rng.standard_normal(n_rows)
-    >>> x = linalg.lstsq(A, b)[0]
-    >>> Ab = np.hstack((A, b.reshape(-1, 1)))
-    >>> SAb = linalg.clarkson_woodruff_transform(Ab, sketch_n_rows, seed=rng)
-    >>> SA, Sb = SAb[:, :-1], SAb[:, -1]
-    >>> x_sketched = linalg.lstsq(SA, Sb)[0]
+    >>> x = np.linalg.lstsq(A, b, rcond=None)
+    >>> Ab = np.hstack((A, b.reshape(-1,1)))
+    >>> SAb = linalg.clarkson_woodruff_transform(Ab, sketch_n_rows)
+    >>> SA, Sb = SAb[:,:-1], SAb[:,-1]
+    >>> x_sketched = np.linalg.lstsq(SA, Sb, rcond=None)
 
-    As with the matrix norm example, ``linalg.norm(A @ x - b)`` is close
-    to ``linalg.norm(A @ x_sketched - b)`` with high probability.
+    As with the matrix norm example, ``np.linalg.norm(A @ x - b)``
+    is close to ``np.linalg.norm(A @ x_sketched - b)`` with high
+    probability.
 
-    >>> linalg.norm(A @ x - b)
-    122.83242365433877
-    >>> linalg.norm(A @ x_sketched - b)
-    166.58473879945151
+    References
+    ----------
+    .. [1] Kenneth L. Clarkson and David P. Woodruff. Low rank approximation and
+           regression in input sparsity time. In STOC, 2013.
+
+    .. [2] David P. Woodruff. Sketching as a tool for numerical linear algebra.
+           In Foundations and Trends in Theoretical Computer Science, 2014.
 
     """
     ...

@@ -26,12 +26,42 @@ def float_factorial(n: int) -> float:
     """
     ...
 
+class DeprecatedImport:
+    """
+    Deprecated import with redirection and warning.
+
+    Examples
+    --------
+    Suppose you previously had in some module::
+
+        from foo import spam
+
+    If this has to be deprecated, do::
+
+        spam = DeprecatedImport("foo.spam", "baz")
+
+    to redirect users to use "baz" module instead.
+
+    """
+    def __init__(self, old_module_name, new_module_name) -> None:
+        ...
+    
+    def __dir__(self): # -> list[str]:
+        ...
+    
+    def __getattr__(self, name): # -> Any:
+        ...
+    
+
+
 def check_random_state(seed): # -> RandomState | Generator:
     """Turn `seed` into a `np.random.RandomState` instance.
 
     Parameters
     ----------
-    seed : {None, int, `numpy.random.Generator`, `numpy.random.RandomState`}, optional
+    seed : {None, int, `numpy.random.Generator`,
+            `numpy.random.RandomState`}, optional
+
         If `seed` is None (or `np.random`), the `numpy.random.RandomState`
         singleton is used.
         If `seed` is an int, a new ``RandomState`` instance is used,

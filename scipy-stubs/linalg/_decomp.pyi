@@ -72,7 +72,6 @@ def eig(a, b=..., left=..., right=..., overwrite_a=..., overwrite_b=..., check_f
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy import linalg
     >>> a = np.array([[0., -1.], [1., 0.]])
     >>> linalg.eigvals(a)
@@ -170,16 +169,17 @@ def eigh(a, b=..., lower=..., eigvals_only=..., overwrite_a=..., overwrite_b=...
         Whether to check that the input matrices contain only finite numbers.
         Disabling may give a performance gain, but may result in problems
         (crashes, non-termination) if the inputs do contain infinities or NaNs.
-    turbo : bool, optional, deprecated
-            .. deprecated:: 1.5.0
-                `eigh` keyword argument `turbo` is deprecated in favour of
-                ``driver=gvd`` keyword instead and will be removed in SciPy
-                1.12.0.
-    eigvals : tuple (lo, hi), optional, deprecated
-            .. deprecated:: 1.5.0
-                `eigh` keyword argument `eigvals` is deprecated in favour of
-                `subset_by_index` keyword instead and will be removed in SciPy
-                1.12.0.
+    turbo : bool, optional
+        *Deprecated since v1.5.0, use ``driver=gvd`` keyword instead*.
+        Use divide and conquer algorithm (faster but expensive in memory, only
+        for generalized eigenvalue problem and if full set of eigenvalues are
+        requested.). Has no significant effect if eigenvectors are not
+        requested.
+    eigvals : tuple (lo, hi), optional
+        *Deprecated since v1.5.0, use ``subset_by_index`` keyword instead*.
+        Indexes of the smallest and largest (in ascending order) eigenvalues
+        and corresponding eigenvectors to be returned: 0 <= lo <= hi <= M-1.
+        If omitted, all eigenvalues and eigenvectors are returned.
 
     Returns
     -------
@@ -239,7 +239,6 @@ def eigh(a, b=..., lower=..., eigvals_only=..., overwrite_a=..., overwrite_b=...
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.linalg import eigh
     >>> A = np.array([[6, 3, 1, 5], [3, 0, 5, 1], [1, 5, 6, 2], [5, 1, 2, 2]])
     >>> w, v = eigh(A)
@@ -361,7 +360,6 @@ def eig_banded(a_band, lower=..., eigvals_only=..., overwrite_a_band=..., select
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.linalg import eig_banded
     >>> A = np.array([[1, 5, 2, 0], [5, 2, 5, 2], [2, 5, 3, 5], [0, 2, 5, 4]])
     >>> Ab = np.array([[1, 2, 3, 4], [5, 5, 5, 0], [2, 2, 0, 0]])
@@ -434,7 +432,6 @@ def eigvals(a, b=..., overwrite_a=..., check_finite=..., homogeneous_eigvals=...
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy import linalg
     >>> a = np.array([[0., -1.], [1., 0.]])
     >>> linalg.eigvals(a)
@@ -515,15 +512,19 @@ def eigvalsh(a, b=..., lower=..., overwrite_a=..., overwrite_b=..., turbo=..., e
         "evd", "evr", "evx" for standard problems and "gv", "gvd", "gvx" for
         generalized (where b is not None) problems. See the Notes section of
         `scipy.linalg.eigh`.
-    turbo : bool, optional, deprecated
+    turbo : bool, optional
+        *Deprecated by ``driver=gvd`` option*. Has no significant effect for
+        eigenvalue computations since no eigenvectors are requested.
+
         .. deprecated:: 1.5.0
-            'eigvalsh' keyword argument `turbo` is deprecated in favor of
-            ``driver=gvd`` option and will be removed in SciPy 1.12.0.
 
     eigvals : tuple (lo, hi), optional
+        *Deprecated by ``subset_by_index`` keyword*. Indexes of the smallest
+        and largest (in ascending order) eigenvalues and corresponding
+        eigenvectors to be returned: 0 <= lo <= hi <= M-1. If omitted, all
+        eigenvalues and eigenvectors are returned.
+
         .. deprecated:: 1.5.0
-            'eigvalsh' keyword argument `eigvals` is deprecated in favor of
-            `subset_by_index` option and will be removed in SciPy 1.12.0.
 
     Returns
     -------
@@ -563,7 +564,6 @@ def eigvalsh(a, b=..., lower=..., overwrite_a=..., overwrite_b=..., turbo=..., e
     --------
     For more examples see `scipy.linalg.eigh`.
 
-    >>> import numpy as np
     >>> from scipy.linalg import eigvalsh
     >>> A = np.array([[6, 3, 1, 5], [3, 0, 5, 1], [1, 5, 6, 2], [5, 1, 2, 2]])
     >>> w = eigvalsh(A)
@@ -652,7 +652,6 @@ def eigvals_banded(a_band, lower=..., overwrite_a_band=..., select=..., select_r
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.linalg import eigvals_banded
     >>> A = np.array([[1, 5, 2, 0], [5, 2, 5, 2], [2, 5, 3, 5], [0, 2, 5, 4]])
     >>> Ab = np.array([[1, 2, 3, 4], [5, 5, 5, 0], [2, 2, 0, 0]])
@@ -727,7 +726,6 @@ def eigvalsh_tridiagonal(d, e, select=..., select_range=..., check_finite=..., t
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.linalg import eigvalsh_tridiagonal, eigvalsh
     >>> d = 3*np.ones(4)
     >>> e = -1*np.ones(3)
@@ -818,7 +816,6 @@ def eigh_tridiagonal(d, e, eigvals_only=..., select=..., select_range=..., check
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.linalg import eigh_tridiagonal
     >>> d = 3*np.ones(4)
     >>> e = -1*np.ones(3)
@@ -864,7 +861,6 @@ def hessenberg(a, calc_q=..., overwrite_a=..., check_finite=...): # -> tuple[NDA
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.linalg import hessenberg
     >>> A = np.array([[2, 5, 8, 7], [5, 2, 2, 8], [7, 5, 6, 6], [5, 4, 4, 8]])
     >>> H, Q = hessenberg(A, calc_q=True)
@@ -926,7 +922,6 @@ def cdf2rdf(w, v): # -> tuple[NDArray[float_], Any]:
 
     Examples
     --------
-    >>> import numpy as np
     >>> X = np.array([[1, 2, 3], [0, 4, 5], [0, -5, 4]])
     >>> X
     array([[ 1,  2,  3],

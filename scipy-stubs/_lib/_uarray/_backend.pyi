@@ -14,7 +14,7 @@ def unpickle_function(mod_name, qname, self_): # -> MethodType | ModuleType | An
 def pickle_function(func): # -> tuple[(mod_name: Unknown, qname: Unknown, self_: Unknown) -> (MethodType | ModuleType | Any), tuple[Any | None, Any | None, Any | None]]:
     ...
 
-def pickle_state(state): # -> tuple[Any, Unknown]:
+def pickle_state(state): # -> tuple[Unknown, Unknown]:
     ...
 
 def pickle_set_backend_context(ctx): # -> tuple[Unknown, Unknown]:
@@ -23,7 +23,7 @@ def pickle_set_backend_context(ctx): # -> tuple[Unknown, Unknown]:
 def pickle_skip_backend_context(ctx): # -> tuple[Unknown, Unknown]:
     ...
 
-def get_state(): # -> Any:
+def get_state():
     """
     Returns an opaque object containing the current state of all the backends.
 
@@ -342,7 +342,7 @@ def wrap_single_convertor_instance(convert_single): # -> _Wrapped[(...), Unknown
     """
     ...
 
-def determine_backend(value, dispatch_type, *, domain, only=..., coerce=...): # -> Any:
+def determine_backend(value, dispatch_type, *, domain, only=..., coerce=...):
     """Set the backend to the first active backend that supports ``value``
 
     This is useful for functions that call multimethods without any dispatchable
@@ -412,7 +412,7 @@ def determine_backend(value, dispatch_type, *, domain, only=..., coerce=...): # 
     """
     ...
 
-def determine_backend_multi(dispatchables, *, domain, only=..., coerce=..., **kwargs): # -> Any:
+def determine_backend_multi(dispatchables, *, domain, only=..., coerce=..., **kwargs):
     """Set a backend supporting all ``dispatchables``
 
     This is useful for functions that call multimethods without any dispatchable

@@ -162,9 +162,8 @@ def newton(func, x0, fprime=..., args=..., tol=..., maxiter=..., fprime2=..., x1
 
     Examples
     --------
-    >>> import numpy as np
-    >>> import matplotlib.pyplot as plt
     >>> from scipy import optimize
+    >>> import matplotlib.pyplot as plt
 
     >>> def f(x):
     ...     return (x**3 - 1)  # only one real root at x = 1

@@ -187,7 +187,6 @@ class KroghInterpolator(_Interpolator1DWithDerivatives):
     For another example, given xi, yi, and a derivative ypi for each
     point, appropriate arrays can be constructed as:
 
-    >>> import numpy as np
     >>> rng = np.random.default_rng()
     >>> xi = np.linspace(0, 1, 5)
     >>> yi, ypi = rng.random((2, 5))
@@ -252,7 +251,6 @@ def krogh_interpolate(xi, yi, x, der=..., axis=...):
     --------
     We can interpolate 2D observed data using krogh interpolation:
 
-    >>> import numpy as np
     >>> import matplotlib.pyplot as plt
     >>> from scipy.interpolate import krogh_interpolate
     >>> x_observed = np.linspace(0.0, 10.0, 11)
@@ -310,7 +308,6 @@ def approximate_taylor_polynomial(f, x, degree, scale, order=...): # -> poly1d:
     We can calculate Taylor approximation polynomials of sin function with
     various degrees:
 
-    >>> import numpy as np
     >>> import matplotlib.pyplot as plt
     >>> from scipy.interpolate import approximate_taylor_polynomial
     >>> x = np.linspace(-10.0, 10.0, num=100)
@@ -483,7 +480,6 @@ def barycentric_interpolate(xi, yi, x, axis=...):
     --------
     We can interpolate 2D observed data using barycentric interpolation:
 
-    >>> import numpy as np
     >>> import matplotlib.pyplot as plt
     >>> from scipy.interpolate import barycentric_interpolate
     >>> x_observed = np.linspace(0.0, 10.0, 11)

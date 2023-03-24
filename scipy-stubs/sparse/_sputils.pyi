@@ -48,13 +48,6 @@ def downcast_intp_index(arr):
     ...
 
 def to_native(A): # -> NDArray[Unknown]:
-    """
-    Ensure that the data type of the NumPy array `A` has native byte order.
-
-    `A` must be a NumPy array.  If the data type of `A` does not have native
-    byte order, a copy of `A` with a native byte order is returned. Otherwise
-    `A` is returned.
-    """
     ...
 
 def getdtype(dtype, a=..., default=...): # -> dtype[Unknown]:
@@ -73,7 +66,7 @@ def getdata(obj, dtype=..., copy=...): # -> NDArray[Unknown]:
     """
     ...
 
-def get_index_dtype(arrays=..., maxval=..., check_contents=...): # -> int64 | int32:
+def get_index_dtype(arrays=..., maxval=..., check_contents=...): # -> int64 | intc:
     """
     Based on input (integer) arrays `a`, determine a suitable index data
     type that can hold the data in the arrays.

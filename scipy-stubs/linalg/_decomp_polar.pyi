@@ -43,7 +43,6 @@ def polar(a, side=...): # -> tuple[Unknown, Unknown]:
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.linalg import polar
     >>> a = np.array([[1, -1], [2, 4]])
     >>> u, p = polar(a)

@@ -28,6 +28,7 @@ def fourier_gaussian(input, sigma, n=..., axis=..., output=...): # -> NDArray[fl
         The axis of the real transform.
     output : ndarray, optional
         If given, the result of filtering the input is placed in this array.
+        None is returned in this case.
 
     Returns
     -------
@@ -36,12 +37,12 @@ def fourier_gaussian(input, sigma, n=..., axis=..., output=...): # -> NDArray[fl
 
     Examples
     --------
-    >>> from scipy import ndimage, datasets
+    >>> from scipy import ndimage, misc
     >>> import numpy.fft
     >>> import matplotlib.pyplot as plt
     >>> fig, (ax1, ax2) = plt.subplots(1, 2)
     >>> plt.gray()  # show the filtered result in grayscale
-    >>> ascent = datasets.ascent()
+    >>> ascent = misc.ascent()
     >>> input_ = numpy.fft.fft2(ascent)
     >>> result = ndimage.fourier_gaussian(input_, sigma=4)
     >>> result = numpy.fft.ifft2(result)
@@ -76,6 +77,7 @@ def fourier_uniform(input, size, n=..., axis=..., output=...): # -> NDArray[floa
         The axis of the real transform.
     output : ndarray, optional
         If given, the result of filtering the input is placed in this array.
+        None is returned in this case.
 
     Returns
     -------
@@ -84,12 +86,12 @@ def fourier_uniform(input, size, n=..., axis=..., output=...): # -> NDArray[floa
 
     Examples
     --------
-    >>> from scipy import ndimage, datasets
+    >>> from scipy import ndimage, misc
     >>> import numpy.fft
     >>> import matplotlib.pyplot as plt
     >>> fig, (ax1, ax2) = plt.subplots(1, 2)
     >>> plt.gray()  # show the filtered result in grayscale
-    >>> ascent = datasets.ascent()
+    >>> ascent = misc.ascent()
     >>> input_ = numpy.fft.fft2(ascent)
     >>> result = ndimage.fourier_uniform(input_, size=20)
     >>> result = numpy.fft.ifft2(result)
@@ -103,7 +105,7 @@ def fourier_ellipsoid(input, size, n=..., axis=..., output=...): # -> NDArray[fl
     """
     Multidimensional ellipsoid Fourier filter.
 
-    The array is multiplied with the fourier transform of an ellipsoid of
+    The array is multiplied with the fourier transform of a ellipsoid of
     given sizes.
 
     Parameters
@@ -124,6 +126,7 @@ def fourier_ellipsoid(input, size, n=..., axis=..., output=...): # -> NDArray[fl
         The axis of the real transform.
     output : ndarray, optional
         If given, the result of filtering the input is placed in this array.
+        None is returned in this case.
 
     Returns
     -------
@@ -136,12 +139,12 @@ def fourier_ellipsoid(input, size, n=..., axis=..., output=...): # -> NDArray[fl
 
     Examples
     --------
-    >>> from scipy import ndimage, datasets
+    >>> from scipy import ndimage, misc
     >>> import numpy.fft
     >>> import matplotlib.pyplot as plt
     >>> fig, (ax1, ax2) = plt.subplots(1, 2)
     >>> plt.gray()  # show the filtered result in grayscale
-    >>> ascent = datasets.ascent()
+    >>> ascent = misc.ascent()
     >>> input_ = numpy.fft.fft2(ascent)
     >>> result = ndimage.fourier_ellipsoid(input_, size=20)
     >>> result = numpy.fft.ifft2(result)
@@ -175,6 +178,7 @@ def fourier_shift(input, shift, n=..., axis=..., output=...): # -> NDArray[compl
         The axis of the real transform.
     output : ndarray, optional
         If given, the result of shifting the input is placed in this array.
+        None is returned in this case.
 
     Returns
     -------
@@ -183,12 +187,12 @@ def fourier_shift(input, shift, n=..., axis=..., output=...): # -> NDArray[compl
 
     Examples
     --------
-    >>> from scipy import ndimage, datasets
+    >>> from scipy import ndimage, misc
     >>> import matplotlib.pyplot as plt
     >>> import numpy.fft
     >>> fig, (ax1, ax2) = plt.subplots(1, 2)
     >>> plt.gray()  # show the filtered result in grayscale
-    >>> ascent = datasets.ascent()
+    >>> ascent = misc.ascent()
     >>> input_ = numpy.fft.fft2(ascent)
     >>> result = ndimage.fourier_shift(input_, shift=200)
     >>> result = numpy.fft.ifft2(result)

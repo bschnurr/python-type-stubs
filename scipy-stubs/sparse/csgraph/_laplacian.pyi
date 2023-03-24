@@ -103,7 +103,6 @@ def laplacian(csgraph, normed=..., return_diag=..., use_out_degree=..., *, copy=
 
     Examples
     --------
-    >>> import numpy as np
     >>> from scipy.sparse import csgraph
 
     Our first illustration is the symmetric graph

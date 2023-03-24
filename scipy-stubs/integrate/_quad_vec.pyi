@@ -161,7 +161,6 @@ def quad_vec(f, a, b, epsabs=..., epsrel=..., norm=..., cache_size=..., limit=..
     We can compute integrations of a vector-valued function:
 
     >>> from scipy.integrate import quad_vec
-    >>> import numpy as np
     >>> import matplotlib.pyplot as plt
     >>> alpha = np.linspace(0.0, 2.0, num=30)
     >>> f = lambda x: x**alpha
